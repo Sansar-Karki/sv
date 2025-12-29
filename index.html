@@ -6,25 +6,290 @@
   <title>SV Trades | Process-first market insights</title>
   <meta name="description" content="SV Trades: process-first market insights, watchlists, and education. Discipline, risk management, and clarity over hype." />
   <meta name="theme-color" content="#0b0b0f" />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="/styles.css" />
+
+  <!-- Tiny inline favicon (no extra files needed) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128' viewBox='0 0 128 128'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%2334d399'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='10' y='10' width='108' height='108' rx='26' fill='url(%23g)'/%3E%3Ctext x='64' y='78' text-anchor='middle' font-family='Arial, sans-serif' font-size='54' font-weight='800' fill='%230b0b0f'%3ESV%3C/text%3E%3C/svg%3E" />
+
+  <style>
+    :root{
+      --bg:#0b0b0f;
+      --panel:rgba(255,255,255,.04);
+      --panel2:rgba(255,255,255,.02);
+      --text:#f4f6ff;
+      --muted:#b6bdd6;
+      --line:rgba(255,255,255,.10);
+      --accent:#7c5cff;
+      --accent2:#34d399;
+      --shadow: 0 14px 45px rgba(0,0,0,.40);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 15% 10%, rgba(124,92,255,.22), transparent 60%),
+        radial-gradient(800px 450px at 85% 15%, rgba(52,211,153,.14), transparent 55%),
+        var(--bg);
+    }
+    a{color:inherit; text-decoration:none}
+    a:hover{opacity:.92}
+
+    .container{max-width:1120px; margin:0 auto; padding:0 20px}
+
+    /* NAV */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(12px);
+      background: rgba(11,11,15,.70);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-inner{
+      height:70px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px}
+    .mark{
+      width:36px; height:36px;
+      display:grid; place-items:center;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background: linear-gradient(135deg, rgba(124,92,255,.28), rgba(52,211,153,.18));
+    }
+    .nav-links{display:flex; gap:18px; align-items:center; color:rgba(244,246,255,.86)}
+    .nav-links a{padding:8px 10px; border-radius:12px}
+    .nav-links a:hover{background: rgba(255,255,255,.04)}
+    .hamburger{
+      display:none;
+      border:1px solid var(--line);
+      background: transparent;
+      color: var(--text);
+      border-radius:14px;
+      padding:10px 12px;
+      cursor:pointer;
+    }
+    .mobile{
+      display:none;
+      border-top:1px solid var(--line);
+      padding:10px 20px 16px;
+    }
+    .mobile a{display:block; padding:12px 0; color:var(--muted)}
+    .mobile a:hover{color:var(--text)}
+
+    /* BUTTONS */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:12px 16px;
+      border-radius:14px;
+      border:1px solid rgba(124,92,255,.50);
+      background: linear-gradient(135deg, rgba(124,92,255,.92), rgba(124,92,255,.60));
+      color:#fff;
+      box-shadow: var(--shadow);
+      font-weight:750;
+      cursor:pointer;
+      transition: transform .12s ease, opacity .12s ease;
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn:active{transform: translateY(0)}
+    .btn-ghost{
+      background: transparent;
+      border:1px solid var(--line);
+      box-shadow:none;
+      color:var(--text);
+      font-weight:650;
+    }
+    .btn-small{padding:10px 12px; border-radius:12px}
+
+    /* HERO */
+    .hero{padding:76px 0 34px}
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:26px;
+      align-items:start;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: var(--panel2);
+      color: var(--muted);
+      font-size:14px;
+      margin:0 0 14px;
+    }
+    h1{
+      font-size:56px;
+      line-height:1.03;
+      margin:0 0 14px;
+      letter-spacing:-.8px;
+    }
+    .subhead{
+      color: var(--muted);
+      font-size:18px;
+      line-height:1.65;
+      margin:0 0 18px;
+    }
+    .cta{display:flex; gap:12px; flex-wrap:wrap; margin:10px 0 12px}
+    .fineprint{
+      color: rgba(244,246,255,.72);
+      font-size:13px;
+      line-height:1.55;
+      margin:0;
+    }
+    .fineprint .u{ text-decoration: underline; text-underline-offset: 3px; }
+
+    /* CARDS */
+    .card{
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 12px 34px rgba(0,0,0,.25);
+    }
+    .card-pad{padding:18px}
+    .hero-card{overflow:hidden}
+    .card-top{
+      display:flex; align-items:center; gap:8px;
+      padding:12px 14px;
+      border-bottom:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+    .dot{width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.14)}
+    .card-title{margin-left:8px; color:var(--muted); font-size:13px}
+    .card-body{padding:18px}
+    .checklist{list-style:none; padding:0; margin:0 0 14px}
+    .checklist li{padding:10px 0; border-bottom:1px dashed rgba(255,255,255,.12)}
+    .checklist li:last-child{border-bottom:0}
+    .mini{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+      margin-top:10px;
+    }
+    .mini-box{
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background: rgba(0,0,0,.18);
+    }
+    .mini-label{display:block; color:var(--muted); font-size:12px}
+    .mini-value{display:block; margin-top:4px; font-weight:800}
+
+    /* SECTIONS */
+    .section{padding:64px 0}
+    .alt{background: linear-gradient(180deg, transparent, rgba(255,255,255,.02), transparent)}
+    h2{font-size:34px; margin:0 0 10px; letter-spacing:-.3px}
+    .lead{color:var(--muted); font-size:18px; line-height:1.7; margin:0 0 24px}
+
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+    h3{margin:0 0 8px}
+    .p{color:var(--muted); margin:0; line-height:1.7}
+    .bullets{margin:10px 0 0; padding-left:18px; color:var(--muted)}
+    .bullets li{margin:8px 0}
+
+    .steps{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+    .step{
+      display:flex; gap:12px;
+      padding:18px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: var(--panel2);
+    }
+    .step-num{
+      width:34px; height:34px;
+      border-radius:12px;
+      display:grid; place-items:center;
+      border:1px solid rgba(124,92,255,.50);
+      background: rgba(124,92,255,.16);
+      font-weight:900;
+    }
+
+    .callout{
+      margin-top:18px;
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:18px;
+      border-radius: var(--radius);
+      border:1px solid rgba(52,211,153,.28);
+      background: linear-gradient(135deg, rgba(52,211,153,.10), rgba(124,92,255,.08));
+    }
+
+    /* FAQ */
+    .faq details{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background: var(--panel2);
+      padding:14px 16px;
+      margin:10px 0;
+    }
+    .faq summary{cursor:pointer; font-weight:750}
+    .faq p{margin:10px 0 0; color:var(--muted); line-height:1.7}
+
+    /* CONTACT */
+    .contact-grid{display:grid; grid-template-columns: 1.05fr .95fr; gap:14px; align-items:start}
+    .contact-cards{display:grid; gap:12px; margin-top:14px}
+
+    label{display:block; font-size:13px; color:var(--muted); margin-bottom:12px}
+    input, textarea{
+      width:100%;
+      margin-top:6px;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.22);
+      color:var(--text);
+      outline:none;
+    }
+    input:focus, textarea:focus{border-color: rgba(124,92,255,.60)}
+    .form .btn{width:100%; margin-top:6px}
+
+    /* FOOTER */
+    .footer{
+      padding:26px 0 34px;
+      border-top:1px solid var(--line);
+      background: rgba(0,0,0,.12);
+    }
+    .footer-inner{display:flex; justify-content:space-between; gap:12px; align-items:center}
+    .footer-links{display:flex; gap:14px; color:var(--muted)}
+    .hr{height:1px; background:var(--line); margin:18px 0}
+
+    /* RESPONSIVE */
+    @media (max-width: 920px){
+      .hero-grid, .contact-grid{grid-template-columns:1fr}
+      h1{font-size:46px}
+      .grid-3{grid-template-columns:1fr}
+      .steps{grid-template-columns:1fr}
+    }
+    @media (max-width: 720px){
+      .nav-links{display:none}
+      .hamburger{display:inline-flex}
+    }
+  </style>
 </head>
+
 <body>
   <header class="nav">
     <div class="container nav-inner">
       <a class="brand" href="#top" aria-label="SV Trades home">
-        <span class="brand-mark" aria-hidden="true">SV</span>
-        <span class="brand-name">SV Trades</span>
+        <span class="mark" aria-hidden="true">SV</span>
+        <span>SV Trades</span>
       </a>
+
       <nav class="nav-links" aria-label="Primary">
         <a href="#services">What you get</a>
         <a href="#process">Process</a>
         <a href="#faq">FAQ</a>
         <a class="btn btn-small" href="#contact">Contact</a>
       </nav>
+
       <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
     </div>
-    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+
+    <div class="mobile" id="mobileMenu" aria-hidden="true">
       <a href="#services">What you get</a>
       <a href="#process">Process</a>
       <a href="#faq">FAQ</a>
@@ -42,17 +307,19 @@
             SV Trades publishes watchlists, levels, and simple playbooks designed to keep you focused on execution.
             Clear plans. Clean risk. Fewer decisions.
           </p>
-          <div class="cta-row">
+
+          <div class="cta">
             <a class="btn" href="#contact">Get in touch</a>
             <a class="btn btn-ghost" href="#services">See what you get</a>
           </div>
+
           <p class="fineprint">
             Not financial advice. Education and commentary only.
-            <a href="/disclaimer.html">Read disclaimer</a>.
+            <a class="u" href="#disclaimer">Read disclaimer</a>.
           </p>
         </div>
 
-        <div class="card hero-card" role="presentation">
+        <div class="card hero-card" aria-hidden="true">
           <div class="card-top">
             <div class="dot"></div><div class="dot"></div><div class="dot"></div>
             <span class="card-title">Today’s framework</span>
@@ -66,18 +333,9 @@
               <li><strong>Rules:</strong> no chase, no revenge</li>
             </ul>
             <div class="mini">
-              <div class="mini-box">
-                <span class="mini-label">Goal</span>
-                <span class="mini-value">Consistency</span>
-              </div>
-              <div class="mini-box">
-                <span class="mini-label">Focus</span>
-                <span class="mini-value">Execution</span>
-              </div>
-              <div class="mini-box">
-                <span class="mini-label">Style</span>
-                <span class="mini-value">Simple</span>
-              </div>
+              <div class="mini-box"><span class="mini-label">Goal</span><span class="mini-value">Consistency</span></div>
+              <div class="mini-box"><span class="mini-label">Focus</span><span class="mini-value">Execution</span></div>
+              <div class="mini-box"><span class="mini-label">Style</span><span class="mini-value">Simple</span></div>
             </div>
           </div>
         </div>
@@ -90,9 +348,9 @@
         <p class="lead">Everything designed to reduce impulse and increase repeatability.</p>
 
         <div class="grid-3">
-          <article class="card">
+          <article class="card card-pad">
             <h3>Watchlists + Levels</h3>
-            <p>Pre-market candidates, key levels, and “if-this-then-that” notes.</p>
+            <p class="p">Pre-market candidates, key levels, and “if-this-then-that” notes.</p>
             <ul class="bullets">
               <li>PDH/PDL + opening range</li>
               <li>VWAP distance cues</li>
@@ -100,9 +358,9 @@
             </ul>
           </article>
 
-          <article class="card">
+          <article class="card card-pad">
             <h3>Playbooks</h3>
-            <p>Simple setups you can actually execute without a PhD in chart astrology.</p>
+            <p class="p">Simple setups you can actually execute without a PhD in chart astrology.</p>
             <ul class="bullets">
               <li>Rejection trades</li>
               <li>Range-to-mean setups</li>
@@ -110,9 +368,9 @@
             </ul>
           </article>
 
-          <article class="card">
+          <article class="card card-pad">
             <h3>Execution Discipline</h3>
-            <p>Checklists and rules to keep the monkey brain in its cage.</p>
+            <p class="p">Checklists and rules to keep the monkey brain in its cage.</p>
             <ul class="bullets">
               <li>Risk templates</li>
               <li>Stop/target logic</li>
@@ -133,36 +391,39 @@
             <span class="step-num">1</span>
             <div>
               <h3>Prepare</h3>
-              <p>Pick a small list of tickers. Mark levels. Define the day’s regime.</p>
+              <p class="p">Pick a short list. Mark levels. Define the day’s regime.</p>
             </div>
           </div>
+
           <div class="step">
             <span class="step-num">2</span>
             <div>
               <h3>Wait</h3>
-              <p>Let price come to your levels. No chase. No “it looks like it might…”</p>
+              <p class="p">Let price come to your levels. No chase. No “maybe.”</p>
             </div>
           </div>
+
           <div class="step">
             <span class="step-num">3</span>
             <div>
               <h3>Execute</h3>
-              <p>Trigger, confirmation, stop, target. Then stop tinkering.</p>
+              <p class="p">Trigger, confirmation, stop, target. Then stop tinkering.</p>
             </div>
           </div>
+
           <div class="step">
             <span class="step-num">4</span>
             <div>
               <h3>Review</h3>
-              <p>Grade the trade by rules followed, not dollars made.</p>
+              <p class="p">Grade the trade by rules followed, not dollars made.</p>
             </div>
           </div>
         </div>
 
         <div class="callout">
           <div>
-            <h3>Want this branded for your style?</h3>
-            <p>We can tune the copy to match your trading style and the platform you use.</p>
+            <h3>Want this tailored to your style?</h3>
+            <p class="p">We can rewrite the copy for futures ORB, options, or whatever you trade.</p>
           </div>
           <a class="btn" href="#contact">Let’s do it</a>
         </div>
@@ -178,17 +439,20 @@
             <summary>Is this financial advice?</summary>
             <p>No. SV Trades shares education and market commentary. You are responsible for your own decisions and risk.</p>
           </details>
-          <details>
-            <summary>What markets do you cover?</summary>
-            <p>Whatever you trade most. Equities and options are common. If you want futures-focused language, we can tailor the copy.</p>
-          </details>
+
           <details>
             <summary>Do you guarantee results?</summary>
-            <p>No. Anyone who “guarantees” results is either lying or selling you a course on lying.</p>
+            <p>No. Markets don’t do guarantees. Neither do I.</p>
           </details>
+
+          <details>
+            <summary>What markets do you cover?</summary>
+            <p>Whatever you trade. Equities, options, futures. The site copy can be specific once you pick a focus.</p>
+          </details>
+
           <details>
             <summary>How do I contact you?</summary>
-            <p>Use the form below, or link your preferred contact method (email, Discord, X). It’s your site.</p>
+            <p>Use the form below. Right now it opens your email app (simple and reliable).</p>
           </details>
         </div>
       </div>
@@ -198,57 +462,94 @@
       <div class="container contact-grid">
         <div>
           <h2>Contact</h2>
-          <p class="lead">Tell me what you want the site to say and where you want people to go next.</p>
+          <p class="lead">Tell me what you want this site to do, and where you want people to go next.</p>
+
           <div class="contact-cards">
-            <div class="card">
+            <div class="card card-pad">
               <h3>Quick edits</h3>
-              <p>Change headline, add your links, add your logo, done.</p>
+              <p class="p">Headline, links, markets, tone. We can make it yours in minutes.</p>
             </div>
-            <div class="card">
-              <h3>Next step</h3>
-              <p>Add a real domain later. Cloudflare Pages makes it painless.</p>
+            <div class="card card-pad">
+              <h3>Upgrade later</h3>
+              <p class="p">When you buy a domain, you just point DNS. No rebuild needed.</p>
             </div>
           </div>
         </div>
 
-        <form class="card form" id="contactForm">
+        <form class="card card-pad form" id="contactForm">
           <label>
             Name
-            <input name="name" autocomplete="name" placeholder="Your name" required />
+            <input id="name" autocomplete="name" placeholder="Your name" required />
           </label>
           <label>
             Email
-            <input name="email" type="email" autocomplete="email" placeholder="you@email.com" required />
+            <input id="email" type="email" autocomplete="email" placeholder="you@email.com" required />
           </label>
           <label>
             Message
-            <textarea name="message" rows="5" placeholder="What should this site do? Links, markets, style, etc." required></textarea>
+            <textarea id="message" rows="5" placeholder="What should this site say? Links, markets, style, etc." required></textarea>
           </label>
           <button class="btn" type="submit">Send</button>
-          <p class="fineprint" id="formNote">
-            This demo form stores nothing yet. See instructions in <code>script.js</code>.
-          </p>
+          <p class="fineprint">This uses your email app (no backend required).</p>
         </form>
+      </div>
+    </section>
+
+    <section class="section" id="disclaimer">
+      <div class="container">
+        <h2>Disclaimer</h2>
+        <p class="lead">Education and commentary only.</p>
+
+        <div class="card card-pad">
+          <p class="p"><strong>Not financial advice.</strong> All content on this site is for educational and informational purposes only and should not be construed as investment advice, a recommendation, or an offer to buy or sell any security.</p>
+          <div class="hr"></div>
+          <p class="p"><strong>Risk.</strong> Trading and investing involve substantial risk of loss. You are responsible for your own decisions, risk management, and outcomes.</p>
+          <div class="hr"></div>
+          <p class="p"><strong>No guarantees.</strong> Past performance is not indicative of future results. No guarantees are made regarding results.</p>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
     <div class="container footer-inner">
-      <div>
-        <div class="brand footer-brand">
-          <span class="brand-mark" aria-hidden="true">SV</span>
-          <span class="brand-name">SV Trades</span>
-        </div>
-        <p class="fineprint">© <span id="year"></span> SV Trades. All rights reserved.</p>
+      <div class="brand">
+        <span class="mark" aria-hidden="true">SV</span>
+        <span>SV Trades</span>
       </div>
       <div class="footer-links">
-        <a href="/disclaimer.html">Disclaimer</a>
-        <a href="/privacy.html">Privacy</a>
+        <span class="fineprint">© <span id="year"></span> SV Trades</span>
       </div>
     </div>
   </footer>
 
-  <script src="/script.js"></script>
+  <script>
+    // year
+    document.getElementById("year").textContent = String(new Date().getFullYear());
+
+    // mobile menu
+    const btn = document.getElementById("menuBtn");
+    const menu = document.getElementById("mobileMenu");
+    const setMenu = (open) => {
+      btn.setAttribute("aria-expanded", String(open));
+      menu.style.display = open ? "block" : "none";
+      menu.setAttribute("aria-hidden", String(!open));
+    };
+    setMenu(false);
+    btn.addEventListener("click", () => setMenu(btn.getAttribute("aria-expanded") !== "true"));
+    menu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => setMenu(false)));
+
+    // contact form: mailto (simple, no backend)
+    document.getElementById("contactForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const msg = document.getElementById("message").value.trim();
+      const subject = encodeURIComponent("SV Trades inquiry");
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}\n`);
+      // TODO: change this email to yours
+      window.location.href = `mailto:svtradz@gmail.com?subject=${subject}&body=${body}`;
+    });
+  </script>
 </body>
 </html>
