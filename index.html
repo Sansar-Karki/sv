@@ -1,27 +1,254 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>SV Tradz</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; background:#0b0b0b; color:#f5f5f5; margin:0; }
-    .wrap { max-width:720px; margin:0 auto; padding:80px 24px; }
-    h1 { font-size:48px; margin-bottom:12px; }
-    p { font-size:18px; line-height:1.6; color:#cfcfcf; }
-    .tag { margin-top:32px; font-size:14px; opacity:.7; }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SV Trades | Process-first market insights</title>
+  <meta name="description" content="SV Trades: process-first market insights, watchlists, and education. Discipline, risk management, and clarity over hype." />
+  <meta name="theme-color" content="#0b0b0f" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <div class="wrap">
-    <h1>SV Tradz</h1>
-    <p>
-      Independent market analysis and discretionary trading insights.
-      Focused on discipline, risk management, and process over hype.
-    </p>
-    <p class="tag">
-      This is not financial advice. Trading involves risk.
-    </p>
-  </div>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="SV Trades home">
+        <span class="brand-mark" aria-hidden="true">SV</span>
+        <span class="brand-name">SV Trades</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#services">What you get</a>
+        <a href="#process">Process</a>
+        <a href="#faq">FAQ</a>
+        <a class="btn btn-small" href="#contact">Contact</a>
+      </nav>
+      <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <a href="#services">What you get</a>
+      <a href="#process">Process</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="pill">Process-first. Risk-aware. No hype.</p>
+          <h1>Trading insights built on discipline, not noise.</h1>
+          <p class="subhead">
+            SV Trades publishes watchlists, levels, and simple playbooks designed to keep you focused on execution.
+            Clear plans. Clean risk. Fewer decisions.
+          </p>
+          <div class="cta-row">
+            <a class="btn" href="#contact">Get in touch</a>
+            <a class="btn btn-ghost" href="#services">See what you get</a>
+          </div>
+          <p class="fineprint">
+            Not financial advice. Education and commentary only.
+            <a href="/disclaimer.html">Read disclaimer</a>.
+          </p>
+        </div>
+
+        <div class="card hero-card" role="presentation">
+          <div class="card-top">
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            <span class="card-title">Today’s framework</span>
+          </div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li><strong>Bias:</strong> trend vs mean-reversion</li>
+              <li><strong>Levels:</strong> PDH/PDL, ORH/ORL, VWAP zones</li>
+              <li><strong>Triggers:</strong> 5m rejection + confirmation</li>
+              <li><strong>Risk:</strong> predefined stop + target</li>
+              <li><strong>Rules:</strong> no chase, no revenge</li>
+            </ul>
+            <div class="mini">
+              <div class="mini-box">
+                <span class="mini-label">Goal</span>
+                <span class="mini-value">Consistency</span>
+              </div>
+              <div class="mini-box">
+                <span class="mini-label">Focus</span>
+                <span class="mini-value">Execution</span>
+              </div>
+              <div class="mini-box">
+                <span class="mini-label">Style</span>
+                <span class="mini-value">Simple</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <h2>What you get</h2>
+        <p class="lead">Everything designed to reduce impulse and increase repeatability.</p>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Watchlists + Levels</h3>
+            <p>Pre-market candidates, key levels, and “if-this-then-that” notes.</p>
+            <ul class="bullets">
+              <li>PDH/PDL + opening range</li>
+              <li>VWAP distance cues</li>
+              <li>Simple invalidation points</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Playbooks</h3>
+            <p>Simple setups you can actually execute without a PhD in chart astrology.</p>
+            <ul class="bullets">
+              <li>Rejection trades</li>
+              <li>Range-to-mean setups</li>
+              <li>Trend continuation plans</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Execution Discipline</h3>
+            <p>Checklists and rules to keep the monkey brain in its cage.</p>
+            <ul class="bullets">
+              <li>Risk templates</li>
+              <li>Stop/target logic</li>
+              <li>Post-trade review prompts</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="process">
+      <div class="container">
+        <h2>The process</h2>
+        <p class="lead">A boring workflow that produces non-boring results: clarity and control.</p>
+
+        <div class="steps">
+          <div class="step">
+            <span class="step-num">1</span>
+            <div>
+              <h3>Prepare</h3>
+              <p>Pick a small list of tickers. Mark levels. Define the day’s regime.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">2</span>
+            <div>
+              <h3>Wait</h3>
+              <p>Let price come to your levels. No chase. No “it looks like it might…”</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">3</span>
+            <div>
+              <h3>Execute</h3>
+              <p>Trigger, confirmation, stop, target. Then stop tinkering.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">4</span>
+            <div>
+              <h3>Review</h3>
+              <p>Grade the trade by rules followed, not dollars made.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <div>
+            <h3>Want this branded for your style?</h3>
+            <p>We can tune the copy to match your trading style and the platform you use.</p>
+          </div>
+          <a class="btn" href="#contact">Let’s do it</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <h2>FAQ</h2>
+
+        <div class="faq">
+          <details>
+            <summary>Is this financial advice?</summary>
+            <p>No. SV Trades shares education and market commentary. You are responsible for your own decisions and risk.</p>
+          </details>
+          <details>
+            <summary>What markets do you cover?</summary>
+            <p>Whatever you trade most. Equities and options are common. If you want futures-focused language, we can tailor the copy.</p>
+          </details>
+          <details>
+            <summary>Do you guarantee results?</summary>
+            <p>No. Anyone who “guarantees” results is either lying or selling you a course on lying.</p>
+          </details>
+          <details>
+            <summary>How do I contact you?</summary>
+            <p>Use the form below, or link your preferred contact method (email, Discord, X). It’s your site.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="contact">
+      <div class="container contact-grid">
+        <div>
+          <h2>Contact</h2>
+          <p class="lead">Tell me what you want the site to say and where you want people to go next.</p>
+          <div class="contact-cards">
+            <div class="card">
+              <h3>Quick edits</h3>
+              <p>Change headline, add your links, add your logo, done.</p>
+            </div>
+            <div class="card">
+              <h3>Next step</h3>
+              <p>Add a real domain later. Cloudflare Pages makes it painless.</p>
+            </div>
+          </div>
+        </div>
+
+        <form class="card form" id="contactForm">
+          <label>
+            Name
+            <input name="name" autocomplete="name" placeholder="Your name" required />
+          </label>
+          <label>
+            Email
+            <input name="email" type="email" autocomplete="email" placeholder="you@email.com" required />
+          </label>
+          <label>
+            Message
+            <textarea name="message" rows="5" placeholder="What should this site do? Links, markets, style, etc." required></textarea>
+          </label>
+          <button class="btn" type="submit">Send</button>
+          <p class="fineprint" id="formNote">
+            This demo form stores nothing yet. See instructions in <code>script.js</code>.
+          </p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="brand footer-brand">
+          <span class="brand-mark" aria-hidden="true">SV</span>
+          <span class="brand-name">SV Trades</span>
+        </div>
+        <p class="fineprint">© <span id="year"></span> SV Trades. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/disclaimer.html">Disclaimer</a>
+        <a href="/privacy.html">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/script.js"></script>
 </body>
 </html>
