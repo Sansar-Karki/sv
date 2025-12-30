@@ -4,27 +4,28 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SVTRADZ | We Don’t Predict. We React.</title>
-  <meta name="description" content="A free trading community for sophisticated retail: probability-first, risk-defined, execution-focused. We don’t predict. We react." />
+  <meta name="description" content="Free trading community built on probability, risk, and execution. We don’t predict. We react." />
   <meta name="theme-color" content="#0B0F17" />
   <style>
     :root{
       --bg0:#070A10;
       --bg1:#0B0F17;
-      --card: rgba(255,255,255,.04);
-      --card2: rgba(255,255,255,.06);
-      --line: rgba(255,255,255,.08);
-      --line2: rgba(255,255,255,.12);
+      --glass: rgba(255,255,255,.05);
+      --glass2: rgba(255,255,255,.07);
+      --line: rgba(255,255,255,.10);
+      --line2: rgba(255,255,255,.14);
       --text:#EAF0FF;
-      --muted: rgba(234,240,255,.72);
+      --muted: rgba(234,240,255,.70);
       --muted2: rgba(234,240,255,.56);
       --accent:#7AA2FF;
       --accent2:#6EF3C5;
       --danger:#FF6B6B;
       --shadow: 0 18px 70px rgba(0,0,0,.45);
-      --shadow2: 0 10px 35px rgba(0,0,0,.35);
-      --radius: 18px;
-      --radius2: 24px;
-      --max: 1120px;
+      --shadow2: 0 12px 42px rgba(0,0,0,.35);
+      --r16: 16px;
+      --r22: 22px;
+      --r28: 28px;
+      --max: 1160px;
     }
 
     *{box-sizing:border-box}
@@ -34,23 +35,52 @@
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color:var(--text);
       background:
-        radial-gradient(900px 560px at 16% 12%, rgba(122,162,255,.18), transparent 60%),
-        radial-gradient(820px 520px at 85% 20%, rgba(110,243,197,.13), transparent 62%),
-        radial-gradient(700px 500px at 50% 105%, rgba(122,162,255,.10), transparent 55%),
+        radial-gradient(900px 560px at 18% 12%, rgba(122,162,255,.16), transparent 60%),
+        radial-gradient(820px 520px at 85% 22%, rgba(110,243,197,.12), transparent 62%),
+        radial-gradient(900px 600px at 50% 110%, rgba(122,162,255,.10), transparent 62%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      overflow-x:hidden;
+    }
+
+    /* soft animated aurora */
+    .aurora{
+      position:fixed; inset:-20vh -20vw auto -20vw;
+      height: 90vh;
+      pointer-events:none;
+      z-index:0;
+      filter: blur(24px);
+      opacity:.75;
+      transform: translate3d(0,0,0);
+    }
+    .aurora::before, .aurora::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(520px 320px at 20% 30%, rgba(122,162,255,.28), transparent 60%),
+        radial-gradient(460px 320px at 70% 25%, rgba(110,243,197,.22), transparent 62%),
+        radial-gradient(520px 360px at 55% 70%, rgba(122,162,255,.16), transparent 62%);
+      animation: drift 14s ease-in-out infinite;
+    }
+    .aurora::after{
+      opacity:.55;
+      animation-duration: 18s;
+      transform: scale(1.15);
+    }
+    @keyframes drift{
+      0%{transform: translate3d(0,0,0) scale(1)}
+      50%{transform: translate3d(4vw, -2vh, 0) scale(1.05)}
+      100%{transform: translate3d(0,0,0) scale(1)}
     }
 
     a{color:inherit}
-    .wrap{max-width:var(--max); margin:0 auto; padding: 28px 18px 72px}
+    .wrap{max-width:var(--max); margin:0 auto; padding: 22px 18px 80px; position:relative; z-index:1}
 
     /* Top bar */
     .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 20;
+      position:sticky; top:0; z-index:30;
       background: rgba(11,15,23,.55);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(255,255,255,.06);
@@ -59,39 +89,25 @@
       max-width:var(--max);
       margin:0 auto;
       padding: 14px 18px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
     }
     .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      text-decoration:none;
-      min-width: 220px;
+      display:flex; align-items:center; gap:12px; text-decoration:none;
+      min-width: 200px;
     }
     .mark{
-      width: 38px;
-      height: 38px;
-      border-radius: 14px;
+      width: 38px; height: 38px; border-radius: 14px;
       background:
         radial-gradient(12px 12px at 30% 35%, rgba(255,255,255,.95), transparent 60%),
         linear-gradient(135deg, rgba(122,162,255,.9), rgba(110,243,197,.85));
       box-shadow: 0 16px 50px rgba(122,162,255,.18);
       border: 1px solid rgba(255,255,255,.12);
     }
-    .brand-title{
-      display:flex; flex-direction:column; gap:2px;
-      letter-spacing:.2px;
-    }
+    .brand-title{display:flex; flex-direction:column; gap:2px; letter-spacing:.2px}
     .brand-title b{font-size:14px}
     .brand-title span{font-size:12.5px; color:var(--muted2)}
     .nav{
-      display:flex;
-      align-items:center;
-      gap: 6px;
-      flex-wrap:wrap;
+      display:flex; align-items:center; gap:6px; flex-wrap:wrap;
     }
     .nav a{
       text-decoration:none;
@@ -106,7 +122,6 @@
       border-color: rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
     }
-
     .btn{
       cursor:pointer;
       border: 1px solid rgba(255,255,255,.12);
@@ -115,33 +130,26 @@
       padding: 10px 12px;
       border-radius: 14px;
       text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
+      display:inline-flex; align-items:center; gap:10px;
       box-shadow: var(--shadow2);
-      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+      transition: transform .12s ease, background .15s ease, border-color .15s ease;
       white-space: nowrap;
     }
-    .btn:hover{background: rgba(255,255,255,.06); border-color: rgba(122,162,255,.35)}
-    .btn:active{transform: translateY(1px)}
+    .btn:hover{background: rgba(255,255,255,.06); border-color: rgba(122,162,255,.35); transform: translateY(-1px)}
+    .btn:active{transform: translateY(0)}
     .btn.primary{
-      background:
-        linear-gradient(135deg, rgba(122,162,255,.18), rgba(110,243,197,.10));
+      background: linear-gradient(135deg, rgba(122,162,255,.18), rgba(110,243,197,.10));
       border-color: rgba(122,162,255,.45);
     }
-    .btn.primary:hover{border-color: rgba(110,243,197,.45)}
-
-    @media (max-width: 860px){
+    @media (max-width: 900px){
       .nav{display:none}
       .brand{min-width:auto}
     }
 
-    /* Hero */
-    .hero{padding: 40px 0 22px}
+    /* Sections */
+    .hero{padding: 40px 0 26px}
     .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
+      display:inline-flex; align-items:center; gap:10px;
       padding: 7px 10px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.10);
@@ -154,144 +162,56 @@
       background: var(--accent2);
       box-shadow: 0 0 0 4px rgba(110,243,197,.12);
     }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 18px;
+      margin-top: 18px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){ .hero-grid{grid-template-columns:1fr} }
+
     h1{
       margin: 14px 0 10px;
-      font-size: clamp(38px, 5.2vw, 62px);
-      line-height: 1.04;
-      letter-spacing: -1.1px;
+      font-size: clamp(40px, 5.4vw, 66px);
+      line-height: 1.03;
+      letter-spacing: -1.25px;
     }
     .lead{
       max-width: 760px;
       color: var(--muted);
       font-size: 16.5px;
-      margin: 0 0 18px;
+      margin: 0 0 16px;
     }
     .hero-actions{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      margin-top: 18px;
+      display:flex; gap:10px; flex-wrap:wrap; margin-top: 16px;
     }
-
-    /* Layout sections */
-    .grid{
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 16px;
-      margin-top: 22px;
-    }
-    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
 
     .card{
-      border-radius: var(--radius2);
+      border-radius: var(--r28);
       border: 1px solid rgba(255,255,255,.10);
       background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
       box-shadow: var(--shadow);
       padding: 18px;
       overflow:hidden;
       position:relative;
+      transform: translateZ(0);
     }
     .card::before{
       content:"";
       position:absolute;
       inset:-2px;
-      background: radial-gradient(600px 220px at 20% 0%, rgba(122,162,255,.10), transparent 62%),
-                  radial-gradient(540px 240px at 85% 30%, rgba(110,243,197,.08), transparent 62%);
+      background:
+        radial-gradient(560px 240px at 18% 0%, rgba(122,162,255,.10), transparent 62%),
+        radial-gradient(520px 240px at 85% 22%, rgba(110,243,197,.08), transparent 62%);
       pointer-events:none;
-      opacity: .9;
+      opacity: .95;
     }
     .card > *{position:relative}
 
-    .card h2{
-      margin:0 0 6px;
-      font-size: 16px;
-      letter-spacing:.2px;
-    }
-    .card p{margin:0; color: var(--muted)}
-    .divider{
-      height:1px;
-      background: rgba(255,255,255,.08);
-      margin: 14px 0;
-    }
-
-    .mini-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 12px;
-    }
-    @media (max-width: 520px){ .mini-grid{grid-template-columns:1fr} }
-
-    .mini{
-      border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      padding: 12px;
-    }
-    .mini b{display:block; font-size: 13px; margin-bottom: 4px}
-    .mini span{display:block; color: var(--muted2); font-size: 12.8px}
-
-    .section{margin-top: 16px}
-    .section-title{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:10px;
-      margin: 18px 0 10px;
-    }
-    .section-title h3{
-      margin:0;
-      font-size: 14px;
-      letter-spacing:.2px;
-      color: var(--text);
-    }
-    .section-title span{
-      color: var(--muted2);
-      font-size: 12.5px;
-    }
-
-    .list{
-      display:grid;
-      gap: 10px;
-      list-style:none;
-      padding:0;
-      margin:0;
-    }
-    .item{
-      display:flex;
-      gap: 10px;
-      align-items:flex-start;
-      padding: 12px;
-      border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-    }
-    .icon{
-      width: 24px; height: 24px;
-      border-radius: 10px;
-      display:flex; align-items:center; justify-content:center;
-      border: 1px solid rgba(122,162,255,.25);
-      background: rgba(122,162,255,.10);
-      flex: 0 0 auto;
-      margin-top: 1px;
-    }
-    .icon svg{width:14px;height:14px;fill: var(--accent)}
-    .item b{display:block; font-size: 13.5px}
-    .item span{display:block; color: var(--muted2); font-size: 12.8px; margin-top: 3px}
-
-    .quote{
-      border-radius: var(--radius2);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      padding: 14px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
-    .quote small{color: var(--muted2)}
-    .quote b{font-size: 15px}
-    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-    .tag{
+    .chiprow{display:flex; gap:8px; flex-wrap:wrap}
+    .chip{
       font-size: 12px;
       color: var(--muted);
       border: 1px solid rgba(255,255,255,.10);
@@ -300,11 +220,114 @@
       border-radius: 999px;
     }
 
+    .panel-title{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:10px;
+      margin: 18px 0 12px;
+    }
+    .panel-title h2{
+      margin:0;
+      font-size: 14px;
+      letter-spacing:.2px;
+    }
+    .panel-title span{
+      color: var(--muted2);
+      font-size: 12.5px;
+    }
+
+    /* Horizontal rail */
+    .rail{
+      display:flex;
+      gap: 12px;
+      overflow-x:auto;
+      padding: 4px 2px 10px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .rail::-webkit-scrollbar{height:10px}
+    .rail::-webkit-scrollbar-thumb{background: rgba(255,255,255,.10); border-radius: 999px}
+    .rail::-webkit-scrollbar-track{background: transparent}
+    .tile{
+      flex: 0 0 320px;
+      scroll-snap-align: start;
+      border-radius: var(--r22);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      padding: 14px;
+      position:relative;
+      overflow:hidden;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+      cursor: default;
+    }
+    .tile:hover{
+      transform: translateY(-2px);
+      border-color: rgba(122,162,255,.25);
+      background: rgba(255,255,255,.045);
+    }
+    .tile b{display:block; font-size: 13.5px; margin-bottom: 6px}
+    .tile p{margin:0; color: var(--muted2); font-size: 12.8px}
+    .tile .corner{
+      position:absolute;
+      right:-30px; top:-30px;
+      width: 90px; height: 90px;
+      background: radial-gradient(circle at 30% 30%, rgba(110,243,197,.25), transparent 60%);
+      filter: blur(0px);
+      opacity:.8;
+      pointer-events:none;
+    }
+
+    /* Mini manifesto as expandable bites */
+    .accordion{
+      display:grid; gap:10px; margin-top: 6px;
+    }
+    details{
+      border-radius: var(--r22);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+    }
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding: 14px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      user-select:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    .sum-left{display:flex; align-items:center; gap:10px}
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: rgba(122,162,255,.95);
+      box-shadow: 0 0 0 4px rgba(122,162,255,.12);
+    }
+    .sum-title{font-size:13.5px}
+    .chev{
+      width: 28px; height: 28px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.14);
+      display:flex; align-items:center; justify-content:center;
+      transition: transform .18s ease;
+    }
+    details[open] .chev{transform: rotate(180deg)}
+    .details-body{
+      padding: 0 14px 14px;
+      color: var(--muted2);
+      font-size: 12.9px;
+    }
+
     /* Contact */
+    .contact-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){ .contact-grid{grid-template-columns:1fr} }
+
     .form{
       display:grid;
       gap: 10px;
-      margin-top: 12px;
+      margin-top: 10px;
     }
     .row{display:grid; grid-template-columns: 1fr 1fr; gap: 10px}
     @media (max-width: 640px){ .row{grid-template-columns:1fr} }
@@ -318,13 +341,14 @@
       background: rgba(0,0,0,.18);
       color: var(--text);
       outline:none;
-      transition: border-color .15s ease, background .15s ease;
+      transition: border-color .15s ease, background .15s ease, transform .12s ease;
     }
-    textarea{min-height: 120px; resize: vertical}
     input:focus, textarea:focus{
       border-color: rgba(122,162,255,.55);
       background: rgba(0,0,0,.22);
+      transform: translateY(-1px);
     }
+    textarea{min-height: 120px; resize: vertical}
     .help{margin:0; font-size: 12.5px; color: var(--muted2)}
     .error{margin:0; font-size: 12.5px; color: var(--danger); display:none}
 
@@ -341,11 +365,34 @@
       font-size: 12.5px;
     }
 
+    /* reveal animations */
+    .reveal{opacity:0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease}
+    .reveal.in{opacity:1; transform: translateY(0)}
+
+    /* parallax highlight under cursor */
+    .spotlight{
+      position:fixed;
+      width: 700px; height: 700px;
+      border-radius: 999px;
+      pointer-events:none;
+      z-index:0;
+      background: radial-gradient(circle at center, rgba(122,162,255,.10), transparent 60%);
+      transform: translate(-50%,-50%);
+      opacity: .35;
+      filter: blur(8px);
+      transition: opacity .2s ease;
+    }
+
     .anchor{scroll-margin-top: 92px}
+    .muted{color:var(--muted)}
+    .muted2{color:var(--muted2)}
   </style>
 </head>
 
 <body>
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="spotlight" id="spotlight" aria-hidden="true"></div>
+
   <header class="topbar">
     <div class="topbar-inner">
       <a class="brand" href="#top">
@@ -357,300 +404,270 @@
       </a>
 
       <nav class="nav" aria-label="Primary">
+        <a href="#playbook">Playbook</a>
         <a href="#mission">Mission</a>
-        <a href="#offer">What you get</a>
-        <a href="#principles">Principles</a>
+        <a href="#experience">Experience</a>
         <a href="#contact">Contact</a>
       </nav>
 
-      <a class="btn primary" href="#contact">Join the free beta <span aria-hidden="true">→</span></a>
+      <a class="btn primary" href="#contact">Join free beta <span aria-hidden="true">→</span></a>
     </div>
   </header>
 
   <main id="top" class="wrap">
-    <section class="hero">
-      <div class="pill"><span class="spark" aria-hidden="true"></span> Free beta community. Structure first. Noise last.</div>
-      <h1>Probability-first trading.<br/>Execution over ego.</h1>
+    <!-- HERO -->
+    <section class="hero reveal">
+      <div class="pill"><span class="spark" aria-hidden="true"></span> Calm community. High signal. Zero astrology.</div>
+      <h1>Trade the reaction.<br/>Not the fantasy.</h1>
       <p class="lead">
-        We’re building a calm, high-signal trading community for sophisticated retail traders.
-        No prediction. No hype. We teach repeatable decision-making, risk control, and how to react when conditions align.
+        A free trading community built around probability, risk-defined execution, and restraint.
       </p>
 
       <div class="hero-actions">
-        <a class="btn primary" href="#mission">Read the mission</a>
+        <a class="btn primary" href="#playbook">Explore the playbook</a>
         <a class="btn" href="#contact">Contact <span class="muted2">svtradz@gmail.com</span></a>
       </div>
 
-      <div class="grid">
-        <section id="mission" class="card anchor" aria-label="Mission">
-          <h2>Mission</h2>
-          <p>
-            Most retail traders lose because they try to predict a market that doesn’t owe them clarity.
-            We reject prediction. We trade reaction.
-          </p>
-
-          <div class="divider"></div>
-
-          <div class="mini-grid">
-            <div class="mini">
-              <b>Think in probabilities</b>
-              <span>Expectancy, sample size, and risk of ruin, taught clearly.</span>
+      <div class="hero-grid">
+        <section class="card">
+          <div class="panel-title">
+            <h2 id="playbook" class="anchor">Playbook</h2>
+            <span>Swipe →</span>
+          </div>
+          <div class="rail" aria-label="Playbook rail">
+            <div class="tile">
+              <span class="corner" aria-hidden="true"></span>
+              <b>Probability-first</b>
+              <p>Expectancy and sample size. No “it felt right.”</p>
             </div>
-            <div class="mini">
-              <b>Trade with defined risk</b>
-              <span>Invalidation first. Hope never gets a vote.</span>
+            <div class="tile">
+              <span class="corner" aria-hidden="true"></span>
+              <b>Risk-defined</b>
+              <p>Invalidation before entry. Always.</p>
             </div>
-            <div class="mini">
-              <b>Execute with restraint</b>
-              <span>“No trade” is a win. Forced trades are a tax.</span>
+            <div class="tile">
+              <span class="corner" aria-hidden="true"></span>
+              <b>Restraint</b>
+              <p>Fewer trades. Better decisions.</p>
             </div>
-            <div class="mini">
-              <b>Show the process</b>
-              <span>Wins, losses, chop days, and honest recaps.</span>
+            <div class="tile">
+              <span class="corner" aria-hidden="true"></span>
+              <b>Process transparency</b>
+              <p>Live clips and recaps. Wins and losses.</p>
+            </div>
+            <div class="tile">
+              <span class="corner" aria-hidden="true"></span>
+              <b>Anti-noise culture</b>
+              <p>No signal spam. No prediction language.</p>
             </div>
           </div>
 
-          <div class="divider"></div>
-
-          <div class="quote">
-            <b>We don’t predict. We react.</b>
-            <small>No hype. No shortcuts. Only execution.</small>
-            <div class="tags">
-              <span class="tag">Probability</span>
-              <span class="tag">Risk-defined</span>
-              <span class="tag">Transparency</span>
-              <span class="tag">Restraint</span>
-            </div>
+          <div class="chiprow" style="margin-top:10px">
+            <span class="chip">Free beta</span>
+            <span class="chip">Education + recaps</span>
+            <span class="chip">Live reaction clips</span>
+            <span class="chip">Stats over screenshots</span>
           </div>
         </section>
 
-        <aside class="card" aria-label="Snapshot">
-          <h2>Snapshot</h2>
-          <p>What this is, and what it is not.</p>
+        <aside class="card">
+          <div class="panel-title">
+            <h2>Snapshot</h2>
+            <span>Clean by design</span>
+          </div>
 
-          <div class="divider"></div>
+          <div class="rail" style="padding-bottom:2px" aria-label="Snapshot rail">
+            <div class="tile" style="flex-basis:300px">
+              <span class="corner" aria-hidden="true"></span>
+              <b>This is</b>
+              <p>Education, process, disciplined execution.</p>
+            </div>
+            <div class="tile" style="flex-basis:300px">
+              <span class="corner" aria-hidden="true"></span>
+              <b>This is not</b>
+              <p>A loud signal room. Copy-trading isn’t the goal.</p>
+            </div>
+          </div>
 
-          <ul class="list">
-            <li class="item">
-              <div class="icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
-              </div>
-              <div>
-                <b>This is</b>
-                <span>Education, live reaction clips, recaps, and a disciplined culture.</span>
-              </div>
-            </li>
-            <li class="item">
-              <div class="icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 5v6l5 3-.8 1.3L11 14V7h2z"/></svg>
-              </div>
-              <div>
-                <b>Not a signal room</b>
-                <span>We share context and conditions, not “buy now” spam.</span>
-              </div>
-            </li>
-            <li class="item">
-              <div class="icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M12 3l8 6v12H4V9l8-6zm0 2.2L6 9.5V19h12V9.5l-6-4.3z"/></svg>
-              </div>
-              <div>
-                <b>Built like a beta</b>
-                <span>Free while we build proof, structure, and consistency.</span>
-              </div>
-            </li>
-          </ul>
-
-          <div class="divider"></div>
-          <p class="help">
-            Educational content only. Not financial advice. Trade at your own risk.
-          </p>
+          <div class="panel-title" style="margin-top:14px">
+            <h2>One line</h2>
+            <span>Our north star</span>
+          </div>
+          <div class="tile" style="flex:1; border-radius: var(--r28);">
+            <span class="corner" aria-hidden="true"></span>
+            <b style="font-size:15px">We don’t predict. We react.</b>
+            <p>Conditions → decision → execution. Repeat.</p>
+          </div>
         </aside>
       </div>
     </section>
 
-    <section id="offer" class="section anchor">
-      <div class="section-title">
-        <h3>What you get</h3>
-        <span>High signal. Low noise.</span>
-      </div>
-
-      <div class="grid">
-        <div class="card">
-          <h2>Education that respects your time</h2>
-          <p>Short, high-quality explainers with clean visuals and animations.</p>
-          <div class="divider"></div>
-
-          <ul class="list">
-            <li class="item">
-              <div class="icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h10v2H4v-2z"/></svg>
-              </div>
-              <div>
-                <b>Retail concepts, simplified</b>
-                <span>Expectancy, R-multiples, and why win rate can lie.</span>
-              </div>
-            </li>
-            <li class="item">
-              <div class="icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z"/></svg>
-              </div>
-              <div>
-                <b>Myth demolition</b>
-                <span>Less superstition. More testable logic.</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <h2>Process transparency</h2>
-          <p>Clips and recaps that show decision-making, not just outcomes.</p>
-          <div class="divider"></div>
-
-          <ul class="list">
-            <li class="item">
-              <div class="icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M17 10.5V7a5 5 0 00-10 0v3.5a3 3 0 00-2 2.8V17a3 3 0 003 3h8a3 3 0 003-3v-3.7a3 3 0 00-2-2.8zM9 7a3 3 0 016 0v3H9V7z"/></svg>
-              </div>
-              <div>
-                <b>Defined risk and invalidation</b>
-                <span>Every entry must earn the right to exist.</span>
-              </div>
-            </li>
-            <li class="item">
-              <div class="icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M8 5h13v14H3V7h5V5zm0 2v1H5v9h14V7H8z"/></svg>
-              </div>
-              <div>
-                <b>Weekly summaries</b>
-                <span>Sample size, average R, and drawdown. Not screenshot theater.</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="principles" class="section anchor">
-      <div class="section-title">
-        <h3>Principles</h3>
-        <span>Culture is the product.</span>
-      </div>
-
+    <!-- MISSION (Bite-sized) -->
+    <section id="mission" class="reveal anchor" style="margin-top:16px">
       <div class="card">
-        <div class="mini-grid">
-          <div class="mini">
-            <b>No prediction language</b>
-            <span>We discuss conditions and reactions, not certainty.</span>
-          </div>
-          <div class="mini">
-            <b>Restraint is respected</b>
-            <span>Skipping is part of the strategy, not a failure.</span>
-          </div>
-          <div class="mini">
-            <b>No hindsight flexing</b>
-            <span>If you didn’t take it, you don’t own it.</span>
-          </div>
-          <div class="mini">
-            <b>Risk is non-negotiable</b>
-            <span>Define invalidation first. Then talk about reward.</span>
-          </div>
+        <div class="panel-title">
+          <h2>Mission</h2>
+          <span>Bite-sized, not a novel</span>
         </div>
 
-        <div class="divider"></div>
+        <div class="accordion" aria-label="Mission accordion">
+          <details>
+            <summary>
+              <div class="sum-left"><span class="dot" aria-hidden="true"></span><span class="sum-title">We reject prediction</span></div>
+              <span class="chev" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="rgba(234,240,255,.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </span>
+            </summary>
+            <div class="details-body">Markets don’t owe clarity. We respond to conditions instead of forcing certainty.</div>
+          </details>
 
-        <div class="quote">
-          <b>Calm beats loud.</b>
-          <small>Anyone can post wins. Very few can post discipline.</small>
+          <details>
+            <summary>
+              <div class="sum-left"><span class="dot" aria-hidden="true"></span><span class="sum-title">Risk comes first</span></div>
+              <span class="chev" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="rgba(234,240,255,.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </span>
+            </summary>
+            <div class="details-body">Every entry must justify its risk before it earns a target.</div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="sum-left"><span class="dot" aria-hidden="true"></span><span class="sum-title">Restraint is the edge</span></div>
+              <span class="chev" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="rgba(234,240,255,.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </span>
+            </summary>
+            <div class="details-body">A missed trade is fine. A forced trade is expensive.</div>
+          </details>
+
+          <details>
+            <summary>
+              <div class="sum-left"><span class="dot" aria-hidden="true"></span><span class="sum-title">Process transparency</span></div>
+              <span class="chev" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="rgba(234,240,255,.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </span>
+            </summary>
+            <div class="details-body">Wins, losses, chop days, and recaps. Stats over screenshots.</div>
+          </details>
+        </div>
+
+        <div class="chiprow" style="margin-top:14px">
+          <span class="chip">No prediction language</span>
+          <span class="chip">No hindsight flexing</span>
+          <span class="chip">No signal spam</span>
+          <span class="chip">Calm beats loud</span>
         </div>
       </div>
     </section>
 
-    <section id="contact" class="section anchor">
-      <div class="section-title">
-        <h3>Contact</h3>
-        <span>Reach us at <span style="color:var(--text)">svtradz@gmail.com</span></span>
-      </div>
+    <!-- EXPERIENCE (More horizontal rails) -->
+    <section id="experience" class="reveal anchor" style="margin-top:16px">
+      <div class="card">
+        <div class="panel-title">
+          <h2>What you’ll experience</h2>
+          <span>Swipe →</span>
+        </div>
 
-      <div class="grid">
-        <div class="card">
-          <h2>Send a message</h2>
-          <p>Join the free beta, collaborate, or ask a question.</p>
-
-          <form class="form" id="contactForm" novalidate>
-            <div class="row">
-              <div>
-                <label for="name">Name</label>
-                <input id="name" name="name" type="text" placeholder="Your name" autocomplete="name" required />
-              </div>
-              <div>
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" placeholder="you@domain.com" autocomplete="email" required />
-              </div>
-            </div>
-
-            <div>
-              <label for="subject">Subject</label>
-              <input id="subject" name="subject" type="text" placeholder="Joining the beta / question / collaboration" required />
-            </div>
-
-            <div>
-              <label for="message">Message</label>
-              <textarea id="message" name="message" placeholder="Write your message..." required></textarea>
-            </div>
-
-            <p class="error" id="formError">Please fill all fields and use a valid email.</p>
-            <p class="help">This opens your email client with a pre-filled message.</p>
-
-            <button class="btn primary" type="submit">Send to svtradz@gmail.com <span aria-hidden="true">→</span></button>
-          </form>
-
-          <div class="foot">
-            <div>© <span id="year"></span> SVTRADZ</div>
-            <div>Education only. Not financial advice.</div>
+        <div class="rail" aria-label="Experience rail">
+          <div class="tile" style="flex-basis:340px">
+            <span class="corner" aria-hidden="true"></span>
+            <b>Animated explainers</b>
+            <p>Short, clean, and useful. One concept at a time.</p>
+          </div>
+          <div class="tile" style="flex-basis:340px">
+            <span class="corner" aria-hidden="true"></span>
+            <b>Live reaction clips</b>
+            <p>Conditions, entries, invalidation, exits. No theatrics.</p>
+          </div>
+          <div class="tile" style="flex-basis:340px">
+            <span class="corner" aria-hidden="true"></span>
+            <b>Session recaps</b>
+            <p>What we saw, what we did, what we skipped.</p>
+          </div>
+          <div class="tile" style="flex-basis:340px">
+            <span class="corner" aria-hidden="true"></span>
+            <b>Weekly stats</b>
+            <p>Sample size, avg R, drawdown. Proof over vibes.</p>
           </div>
         </div>
 
-        <div class="card">
-          <h2>What to include</h2>
-          <p>To help us respond quickly, add any relevant details.</p>
+        <p class="help" style="margin-top:10px">
+          Educational content only. Not financial advice. Trade at your own risk.
+        </p>
+      </div>
+    </section>
 
-          <div class="divider"></div>
+    <!-- CONTACT -->
+    <section id="contact" class="reveal anchor" style="margin-top:16px">
+      <div class="card">
+        <div class="panel-title">
+          <h2>Contact</h2>
+          <span><span class="muted2">Email:</span> svtradz@gmail.com</span>
+        </div>
 
-          <ul class="list">
-            <li class="item">
-              <div class="icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14h-2v-2h2v2zm0-4h-2V6h2v6z"/></svg>
+        <div class="contact-grid">
+          <div>
+            <div class="rail" style="overflow:visible; flex-wrap:wrap; padding-bottom:0">
+              <div class="tile" style="flex:1; min-width:260px">
+                <span class="corner" aria-hidden="true"></span>
+                <b>Join the beta</b>
+                <p>Tell us your experience level and what you want to learn.</p>
               </div>
-              <div>
-                <b>Your experience level</b>
-                <span>New, intermediate, or seasoned. No judgment, just context.</span>
+              <div class="tile" style="flex:1; min-width:260px">
+                <span class="corner" aria-hidden="true"></span>
+                <b>Collaborate</b>
+                <p>Creators, editors, animators, devs. If you’re sharp, say hi.</p>
               </div>
-            </li>
-            <li class="item">
-              <div class="icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M4 19h16v2H4v-2zm2-2V3h2v14H6zm5 0V8h2v9h-2zm5 0V5h2v12h-2z"/></svg>
+              <div class="tile" style="flex:1; min-width:260px">
+                <span class="corner" aria-hidden="true"></span>
+                <b>Ask a question</b>
+                <p>Keep it specific. We’ll answer cleanly.</p>
               </div>
-              <div>
-                <b>What you want from the community</b>
-                <span>Education, accountability, process, or execution support.</span>
-              </div>
-            </li>
-            <li class="item">
-              <div class="icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M7 7h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z"/></svg>
-              </div>
-              <div>
-                <b>Any questions</b>
-                <span>Keep them specific. We’ll answer cleanly.</span>
-              </div>
-            </li>
-          </ul>
+            </div>
+          </div>
 
-          <div class="divider"></div>
-          <p class="help">
-            If you’re looking for “just signals,” this isn’t it. If you want a process, welcome.
-          </p>
+          <div>
+            <form class="form" id="contactForm" novalidate>
+              <div class="row">
+                <div>
+                  <label for="name">Name</label>
+                  <input id="name" name="name" type="text" placeholder="Your name" autocomplete="name" required />
+                </div>
+                <div>
+                  <label for="email">Email</label>
+                  <input id="email" name="email" type="email" placeholder="you@domain.com" autocomplete="email" required />
+                </div>
+              </div>
+
+              <div>
+                <label for="subject">Subject</label>
+                <input id="subject" name="subject" type="text" placeholder="Join beta / collab / question" required />
+              </div>
+
+              <div>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Write your message..." required></textarea>
+              </div>
+
+              <p class="error" id="formError">Please fill all fields and use a valid email.</p>
+              <button class="btn primary" type="submit">Send email <span aria-hidden="true">→</span></button>
+              <p class="help">Opens your email client with a pre-filled message.</p>
+
+              <div class="foot">
+                <div>© <span id="year"></span> SVTRADZ</div>
+                <div>We don’t predict. We react.</div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </section>
@@ -659,6 +676,30 @@
   <script>
     (function(){
       const CONTACT_EMAIL = "svtradz@gmail.com";
+
+      // Reveal on scroll
+      const revealEls = Array.from(document.querySelectorAll(".reveal"));
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting) e.target.classList.add("in");
+        });
+      }, {threshold: 0.12});
+      revealEls.forEach(el=>io.observe(el));
+
+      // Spotlight follows cursor (subtle)
+      const spot = document.getElementById("spotlight");
+      let last = 0;
+      window.addEventListener("pointermove", (ev)=>{
+        const now = performance.now();
+        if(now - last < 16) return;
+        last = now;
+        spot.style.left = ev.clientX + "px";
+        spot.style.top = ev.clientY + "px";
+        spot.style.opacity = "0.35";
+      });
+      window.addEventListener("pointerleave", ()=>{ spot.style.opacity = "0"; });
+
+      // Contact form -> mailto
       const form = document.getElementById("contactForm");
       const err = document.getElementById("formError");
       const year = document.getElementById("year");
