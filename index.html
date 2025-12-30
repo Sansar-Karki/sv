@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SVTRADZ — We don't predict. We react.</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <style>
         * {
             margin: 0;
@@ -331,9 +332,13 @@
         .shape-circle {
             width: 120px;
             height: 120px;
-            border: 3px solid var(--accent);
             border-radius: 50%;
             opacity: 0.3;
+            background-image: url('favicon.svg');
+            background-size: 60%;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 3px solid var(--accent);
         }
 
         .shape-square {
@@ -521,7 +526,7 @@
         /* CTA Section */
         .cta-section {
             background: linear-gradient(135deg, var(--accent), var(--accent-2));
-            color: #fff;
+            color: var(--dark);
             border-radius: 24px;
             padding: 80px 60px;
             text-align: center;
@@ -530,19 +535,36 @@
             overflow: hidden;
         }
 
-        .cta-section::before {
-            content: '🚀';
+        .emoji-collage {
             position: absolute;
-            top: 20px;
-            right: 60px;
-            font-size: 80px;
-            opacity: 0.2;
-            animation: rotate 10s linear infinite;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(10, 1fr);
+            opacity: 0.15;
+            pointer-events: none;
         }
 
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .emoji-collage span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(20px, 2vw, 32px);
+            animation: floatEmoji 8s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.1s);
+        }
+
+        @keyframes floatEmoji {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
         }
 
         .cta-section h2 {
@@ -562,13 +584,16 @@
         }
 
         .cta-section .btn-primary {
-            background: #fff;
-            color: var(--accent-2);
+            background: var(--dark);
+            color: #fff;
+            font-size: 18px;
+            padding: 20px 48px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .cta-section .btn-primary:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
         }
 
         /* Contact Form */
@@ -714,6 +739,11 @@
 
             .contact-form {
                 padding: 32px 24px;
+            }
+
+            .emoji-collage {
+                grid-template-columns: repeat(8, 1fr);
+                grid-template-rows: repeat(8, 1fr);
             }
         }
     </style>
@@ -907,7 +937,7 @@
                             <span class="testimonial-role">Options trader, 3 years</span>
                         </div>
                     </div>
-                    <p class="testimonial-text">"Finally found a community that doesn't oversell. Just solid analysis, risk management, and honesty about losses."</p>
+                    <p class="testimonial-text">"I've been part of a few trading groups before and they all felt like sales pitches. This one's different—people actually help each other improve instead of just posting winners."</p>
                     <div class="testimonial-rating">★★★★★</div>
                 </div>
                 <div class="testimonial">
@@ -918,7 +948,7 @@
                             <span class="testimonial-role">Swing trader, 1 year</span>
                         </div>
                     </div>
-                    <p class="testimonial-text">"The discipline framework changed how I trade. I'm finally consistent because I stick to the process."</p>
+                    <p class="testimonial-text">"Honestly, the best part is learning to be okay with losing trades. Sounds weird but it helped me stop revenge trading and stick to my plan. My account thanks me for it."</p>
                     <div class="testimonial-rating">★★★★★</div>
                 </div>
                 <div class="testimonial">
@@ -929,7 +959,7 @@
                             <span class="testimonial-role">Day trader, 5 years</span>
                         </div>
                     </div>
-                    <p class="testimonial-text">"No BS. No fake promises. Just real setups with clear risk parameters. This is what trading communities should be."</p>
+                    <p class="testimonial-text">"I was skeptical at first. But after seeing them post their losing trades with the same detail as winners, I knew this was legit. That transparency is rare."</p>
                     <div class="testimonial-rating">★★★★★</div>
                 </div>
                 <div class="testimonial">
@@ -940,7 +970,7 @@
                             <span class="testimonial-role">New trader, 6 months</span>
                         </div>
                     </div>
-                    <p class="testimonial-text">"As a beginner, I needed structure. SVTRADZ taught me to focus on process over profits. Game changer."</p>
+                    <p class="testimonial-text">"Started trading six months ago and almost blew my account in the first two weeks. Found SVTRADZ and finally learned that position sizing matters more than finding perfect entries."</p>
                     <div class="testimonial-rating">★★★★★</div>
                 </div>
                 <div class="testimonial">
@@ -951,7 +981,7 @@
                             <span class="testimonial-role">Futures trader, 2 years</span>
                         </div>
                     </div>
-                    <p class="testimonial-text">"Best part? They show losing trades too. Real transparency builds real trust."</p>
+                    <p class="testimonial-text">"The mentorship made the biggest difference for me. Having someone review my trades and point out what I'm missing—can't put a price on that kind of feedback."</p>
                     <div class="testimonial-rating">★★★★★</div>
                 </div>
                 <div class="testimonial">
@@ -962,7 +992,7 @@
                             <span class="testimonial-role">Crypto trader, 4 years</span>
                         </div>
                     </div>
-                    <p class="testimonial-text">"This isn't a pump group. It's a place where serious traders share serious analysis. Exactly what I needed."</p>
+                    <p class="testimonial-text">"Been trading crypto for years and got tired of the hype machine. This community focuses on what actually matters—risk management and consistent execution. Refreshing change."</p>
                     <div class="testimonial-rating">★★★★★</div>
                 </div>
             </div>
@@ -971,9 +1001,12 @@
 
     <!-- CTA Section -->
     <div class="cta-section">
-        <h2>Ready to trade smarter?</h2>
-        <p>Join 500+ traders in our free beta. Get mentorship and our complete strategy. No credit card required.</p>
-        <a href="#contact" class="btn btn-primary">Join free beta →</a>
+        <div class="emoji-collage" id="emojiCollage"></div>
+        <div class="cta-content">
+            <h2>Ready to trade smarter?</h2>
+            <p>Join 500+ traders in our free beta. Get mentorship and our complete strategy. No credit card required.</p>
+            <a href="#contact" class="btn btn-primary">Join free beta</a>
+        </div>
     </div>
 
     <!-- Contact Section -->
@@ -1012,6 +1045,17 @@
     </footer>
 
     <script>
+        // Generate emoji collage
+        const emojiCollage = document.getElementById('emojiCollage');
+        const emojis = ['📈', '📊', '💰', '🎯', '💡', '⚡', '🚀', '🔥', '💪', '🧠', '📉', '💵', '💎', '🎲', '⭐', '🌟', '✨', '🏆', '🎖️', '🥇', '📱', '💻', '⌚', '🔔', '📢', '🎪', '🎨', '🎭', '🎬', '🎸', '🎹', '🎺', '🎻', '🥁', '🎤', '🎧', '🎮', '🕹️', '🎰', '🎳', '🏀', '⚽', '🏈', '⚾', '🥎', '🏐', '🏉', '🎾', '🥏', '🏏', '🏑', '🏒', '🥍', '🏓', '🏸', '🥊', '🥋', '🥅', '⛳', '⛸️', '🎣', '🤿', '🎽', '🎿', '🛷', '🥌', '🎯', '🪀', '🪁', '🎱', '🔮', '🪄', '🧿', '🎊', '🎉', '🎈', '🎁', '🏅', '🥈', '🥉', '🏵️', '🎗️', '🎖️', '💫', '☄️', '✨', '🌈', '🔥', '💥', '⚡', '💫', '🌟', '⭐', '✨'];
+        
+        for (let i = 0; i < 100; i++) {
+            const span = document.createElement('span');
+            span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            span.style.setProperty('--i', i);
+            emojiCollage.appendChild(span);
+        }
+
         // Smooth emoji switcher
         const emojiElements = [
             document.getElementById('emoji1'),
@@ -1023,19 +1067,15 @@
         let currentIndex = 0;
 
         function switchEmoji() {
-            // Remove active from current
             emojiElements[currentIndex].classList.remove('active');
             emojiElements[currentIndex].classList.add('exit');
             
-            // Move to next emoji
             currentIndex = (currentIndex + 1) % emojiElements.length;
             
-            // Add active to next
             emojiElements[currentIndex].classList.remove('exit');
             emojiElements[currentIndex].classList.add('active');
         }
 
-        // Switch every 2.5 seconds
         setInterval(switchEmoji, 2500);
 
         // Hamburger menu
