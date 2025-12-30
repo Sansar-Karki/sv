@@ -12,12 +12,13 @@
         }
 
         :root {
-            --lime: #d4ff00;
-            --dark: #0f1419;
-            --card-bg: #1a1f26;
-            --text: #ffffff;
-            --text-dim: #8b949e;
-            --border: rgba(255, 255, 255, 0.1);
+            --accent: #00d4ff;
+            --accent-2: #0066ff;
+            --dark: #0a0e17;
+            --card-bg: #12161f;
+            --text: #e4e4e7;
+            --text-dim: #a1a1aa;
+            --border: rgba(255, 255, 255, 0.08);
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -50,7 +51,7 @@
             left: 0;
             right: 0;
             z-index: 100;
-            background: rgba(15, 20, 25, 0.95);
+            background: rgba(10, 14, 23, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border);
         }
@@ -66,7 +67,10 @@
             font-size: 24px;
             font-weight: 800;
             letter-spacing: -1px;
-            color: var(--text);
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .nav-links {
@@ -85,12 +89,12 @@
         }
 
         .nav-links a:hover {
-            color: var(--lime);
+            color: var(--accent);
         }
 
         .nav-cta {
-            background: var(--lime);
-            color: var(--dark);
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #fff;
             padding: 12px 24px;
             border-radius: 8px;
             font-weight: 700;
@@ -99,7 +103,7 @@
 
         .nav-cta:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(212, 255, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
         }
 
         /* Hamburger */
@@ -227,13 +231,13 @@
         }
 
         .btn-primary {
-            background: var(--lime);
-            color: var(--dark);
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #fff;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(212, 255, 0, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
         }
 
         .btn-secondary {
@@ -243,14 +247,14 @@
         }
 
         .btn-secondary:hover {
-            border-color: var(--lime);
-            color: var(--lime);
+            border-color: var(--accent);
+            color: var(--accent);
         }
 
         .hero-visual {
             position: relative;
             height: 600px;
-            background: var(--lime);
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
             border-radius: 24px;
             overflow: hidden;
             display: flex;
@@ -265,9 +269,8 @@
             left: 20px;
             width: 80px;
             height: 80px;
-            background: var(--dark);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            opacity: 0.1;
         }
 
         .hero-visual::after {
@@ -279,8 +282,7 @@
             height: 0;
             border-left: 40px solid transparent;
             border-right: 40px solid transparent;
-            border-bottom: 60px solid var(--dark);
-            opacity: 0.1;
+            border-bottom: 60px solid rgba(255, 255, 255, 0.1);
         }
 
         .visual-content {
@@ -291,18 +293,27 @@
         .visual-emoji {
             font-size: 120px;
             margin-bottom: 20px;
-            animation: float 3s ease-in-out infinite;
+            animation: switchEmoji 4s ease-in-out infinite;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        @keyframes switchEmoji {
+            0%, 45% { 
+                content: '📈';
+                opacity: 1;
+            }
+            50% { 
+                opacity: 0;
+            }
+            55%, 100% { 
+                content: '🎯';
+                opacity: 1;
+            }
         }
 
         .visual-text {
             font-size: 24px;
             font-weight: 700;
-            color: var(--dark);
+            color: #fff;
         }
 
         /* Decorative shapes */
@@ -314,7 +325,7 @@
         .shape-circle {
             width: 120px;
             height: 120px;
-            border: 3px solid var(--lime);
+            border: 3px solid var(--accent);
             border-radius: 50%;
             opacity: 0.3;
         }
@@ -322,7 +333,7 @@
         .shape-square {
             width: 60px;
             height: 60px;
-            background: var(--lime);
+            background: var(--accent);
             opacity: 0.2;
             transform: rotate(45deg);
         }
@@ -332,7 +343,7 @@
             height: 0;
             border-left: 40px solid transparent;
             border-right: 40px solid transparent;
-            border-bottom: 70px solid var(--lime);
+            border-bottom: 70px solid var(--accent);
             opacity: 0.2;
         }
 
@@ -352,7 +363,10 @@
         .stat-number {
             font-size: 48px;
             font-weight: 900;
-            color: var(--lime);
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             display: block;
             margin-bottom: 8px;
         }
@@ -408,7 +422,7 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: var(--lime);
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.3s;
@@ -420,7 +434,7 @@
 
         .card:hover {
             transform: translateY(-8px);
-            border-color: var(--lime);
+            border-color: rgba(0, 212, 255, 0.3);
         }
 
         .card-icon {
@@ -466,8 +480,8 @@
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            background: var(--lime);
-            color: var(--dark);
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -494,14 +508,14 @@
         }
 
         .testimonial-rating {
-            color: var(--lime);
+            color: var(--accent);
             font-size: 18px;
         }
 
         /* CTA Section */
         .cta-section {
-            background: var(--lime);
-            color: var(--dark);
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #fff;
             border-radius: 24px;
             padding: 80px 60px;
             text-align: center;
@@ -511,12 +525,18 @@
         }
 
         .cta-section::before {
-            content: '😎';
+            content: '🚀';
             position: absolute;
             top: 20px;
             right: 60px;
             font-size: 80px;
-            opacity: 0.3;
+            opacity: 0.2;
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .cta-section h2 {
@@ -532,16 +552,17 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            opacity: 0.95;
         }
 
         .cta-section .btn-primary {
-            background: var(--dark);
-            color: var(--lime);
+            background: #fff;
+            color: var(--accent-2);
         }
 
         .cta-section .btn-primary:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
         }
 
         /* Contact Form */
@@ -585,7 +606,7 @@
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--lime);
+            border-color: var(--accent);
         }
 
         .form-group textarea {
@@ -621,7 +642,7 @@
         }
 
         footer a {
-            color: var(--lime);
+            color: var(--accent);
             text-decoration: none;
             font-weight: 600;
         }
@@ -740,7 +761,7 @@
 
         <div class="hero-visual">
             <div class="visual-content">
-                <div class="visual-emoji">📈</div>
+                <div class="visual-emoji" id="switchingEmoji">📈</div>
                 <div class="visual-text">We don't predict.<br>We react.</div>
             </div>
         </div>
@@ -758,8 +779,8 @@
                 <span class="stat-label">Trades tracked</span>
             </div>
             <div class="stat">
-                <span class="stat-number">89%</span>
-                <span class="stat-label">Retention rate</span>
+                <span class="stat-number">163%</span>
+                <span class="stat-label">Community YTD return</span>
             </div>
         </div>
     </div>
@@ -969,6 +990,20 @@
     </footer>
 
     <script>
+        // Emoji switcher
+        const emojis = ['📈', '🎯', '💡', '⚡', '🚀'];
+        let currentEmojiIndex = 0;
+        const emojiElement = document.getElementById('switchingEmoji');
+
+        setInterval(() => {
+            emojiElement.style.opacity = '0';
+            setTimeout(() => {
+                currentEmojiIndex = (currentEmojiIndex + 1) % emojis.length;
+                emojiElement.textContent = emojis[currentEmojiIndex];
+                emojiElement.style.opacity = '1';
+            }, 300);
+        }, 3000);
+
         // Hamburger menu
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobileMenu');
