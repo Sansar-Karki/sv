@@ -290,24 +290,30 @@
             z-index: 2;
         }
 
-        .visual-emoji {
-            font-size: 120px;
+        .emoji-container {
+            position: relative;
+            height: 140px;
             margin-bottom: 20px;
-            animation: switchEmoji 4s ease-in-out infinite;
         }
 
-        @keyframes switchEmoji {
-            0%, 45% { 
-                content: '📈';
-                opacity: 1;
-            }
-            50% { 
-                opacity: 0;
-            }
-            55%, 100% { 
-                content: '🎯';
-                opacity: 1;
-            }
+        .visual-emoji {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 120px;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+        }
+
+        .visual-emoji.active {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+        }
+
+        .visual-emoji.exit {
+            opacity: 0;
+            transform: translateX(-50%) scale(0.8);
         }
 
         .visual-text {
@@ -752,7 +758,7 @@
 
         <div class="hero-content">
             <h1>Trade with discipline, not emotion.</h1>
-            <p>Join 500+ traders who react to markets instead of predicting them. Real setups, real transparency.</p>
+            <p>Join 500+ traders who react to markets instead of predicting them. Get direct mentorship and proven strategies.</p>
             <div class="hero-buttons">
                 <a href="#contact" class="btn btn-primary">Join free beta →</a>
                 <a href="#features" class="btn btn-secondary">See what we offer</a>
@@ -761,7 +767,13 @@
 
         <div class="hero-visual">
             <div class="visual-content">
-                <div class="visual-emoji" id="switchingEmoji">📈</div>
+                <div class="emoji-container">
+                    <div class="visual-emoji active" id="emoji1">📈</div>
+                    <div class="visual-emoji" id="emoji2">🎯</div>
+                    <div class="visual-emoji" id="emoji3">💡</div>
+                    <div class="visual-emoji" id="emoji4">⚡</div>
+                    <div class="visual-emoji" id="emoji5">🚀</div>
+                </div>
                 <div class="visual-text">We don't predict.<br>We react.</div>
             </div>
         </div>
@@ -790,9 +802,19 @@
         <div class="container">
             <div class="section-header">
                 <h2>What you get</h2>
-                <p>Tools that work. No fluff.</p>
+                <p>Direct mentorship and proven strategies.</p>
             </div>
             <div class="grid">
+                <div class="card">
+                    <span class="card-icon">🎓</span>
+                    <h3>Personal mentorship</h3>
+                    <p>Direct access to experienced traders who guide your development.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">📋</span>
+                    <h3>Our proven strategy</h3>
+                    <p>Complete breakdown of our trading methodology and execution rules.</p>
+                </div>
                 <div class="card">
                     <span class="card-icon">📊</span>
                     <h3>Live setups</h3>
@@ -811,12 +833,12 @@
                 <div class="card">
                     <span class="card-icon">💡</span>
                     <h3>Trade reviews</h3>
-                    <p>Learn from both wins and losses.</p>
+                    <p>Learn from both wins and losses with detailed breakdowns.</p>
                 </div>
                 <div class="card">
                     <span class="card-icon">🧠</span>
                     <h3>Risk frameworks</h3>
-                    <p>Position sizing, stops, and exit discipline.</p>
+                    <p>Position sizing, stops, and exit discipline systems.</p>
                 </div>
                 <div class="card">
                     <span class="card-icon">🤝</span>
@@ -950,7 +972,7 @@
     <!-- CTA Section -->
     <div class="cta-section">
         <h2>Ready to trade smarter?</h2>
-        <p>Join 500+ traders in our free beta. No credit card. No commitment.</p>
+        <p>Join 500+ traders in our free beta. Get mentorship and our complete strategy. No credit card required.</p>
         <a href="#contact" class="btn btn-primary">Join free beta →</a>
     </div>
 
@@ -990,19 +1012,31 @@
     </footer>
 
     <script>
-        // Emoji switcher
-        const emojis = ['📈', '🎯', '💡', '⚡', '🚀'];
-        let currentEmojiIndex = 0;
-        const emojiElement = document.getElementById('switchingEmoji');
+        // Smooth emoji switcher
+        const emojiElements = [
+            document.getElementById('emoji1'),
+            document.getElementById('emoji2'),
+            document.getElementById('emoji3'),
+            document.getElementById('emoji4'),
+            document.getElementById('emoji5')
+        ];
+        let currentIndex = 0;
 
-        setInterval(() => {
-            emojiElement.style.opacity = '0';
-            setTimeout(() => {
-                currentEmojiIndex = (currentEmojiIndex + 1) % emojis.length;
-                emojiElement.textContent = emojis[currentEmojiIndex];
-                emojiElement.style.opacity = '1';
-            }, 300);
-        }, 3000);
+        function switchEmoji() {
+            // Remove active from current
+            emojiElements[currentIndex].classList.remove('active');
+            emojiElements[currentIndex].classList.add('exit');
+            
+            // Move to next emoji
+            currentIndex = (currentIndex + 1) % emojiElements.length;
+            
+            // Add active to next
+            emojiElements[currentIndex].classList.remove('exit');
+            emojiElements[currentIndex].classList.add('active');
+        }
+
+        // Switch every 2.5 seconds
+        setInterval(switchEmoji, 2500);
 
         // Hamburger menu
         const hamburger = document.getElementById('hamburger');
