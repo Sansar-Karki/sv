@@ -1,676 +1,936 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>SVTRADZ | We don’t predict. We react.</title>
-  <meta name="description" content="SVTRADZ: free trading community. We don’t predict. We react." />
-  <meta name="theme-color" content="#0B0F17" />
-  <style>
-    :root{
-      --bg:#070A10;
-      --bg2:#0B0F17;
-      --txt:#EAF0FF;
-      --mut:rgba(234,240,255,.70);
-      --line:rgba(255,255,255,.10);
-      --glass:rgba(255,255,255,.05);
-      --glass2:rgba(255,255,255,.08);
-      --a:#7AA2FF;
-      --b:#6EF3C5;
-      --shadow: 0 22px 80px rgba(0,0,0,.50);
-      --r:22px;
-      --max:1120px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--txt);
-      background:
-        radial-gradient(900px 580px at 18% 12%, rgba(122,162,255,.16), transparent 60%),
-        radial-gradient(820px 540px at 85% 20%, rgba(110,243,197,.12), transparent 62%),
-        radial-gradient(900px 600px at 50% 120%, rgba(122,162,255,.10), transparent 62%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
-      overflow-x:hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    a{color:inherit;text-decoration:none}
-
-    /* Animated background */
-    .bg{
-      position:fixed; inset:-20vh -20vw auto -20vw;
-      height:90vh; pointer-events:none; z-index:0;
-      filter: blur(26px);
-      opacity:.8;
-    }
-    .bg::before,.bg::after{
-      content:""; position:absolute; inset:0;
-      background:
-        radial-gradient(520px 320px at 18% 28%, rgba(122,162,255,.30), transparent 62%),
-        radial-gradient(460px 320px at 72% 22%, rgba(110,243,197,.22), transparent 62%),
-        radial-gradient(520px 360px at 55% 70%, rgba(122,162,255,.18), transparent 65%);
-      animation: drift 14s ease-in-out infinite;
-      transform: translateZ(0);
-    }
-    .bg::after{opacity:.55; animation-duration: 18s; transform: scale(1.15)}
-    @keyframes drift{
-      0%{transform:translate3d(0,0,0) scale(1)}
-      50%{transform:translate3d(4vw,-2vh,0) scale(1.05)}
-      100%{transform:translate3d(0,0,0) scale(1)}
-    }
-
-    /* Spotlight */
-    .spot{
-      position:fixed;
-      width:720px;height:720px;border-radius:999px;
-      background: radial-gradient(circle at center, rgba(122,162,255,.12), transparent 62%);
-      pointer-events:none;
-      transform: translate(-50%,-50%);
-      filter: blur(10px);
-      opacity:.25;
-      z-index:0;
-      transition: opacity .2s ease;
-    }
-
-    /* Top bar */
-    header{
-      position:sticky; top:0; z-index:50;
-      background: rgba(11,15,23,.55);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .bar{
-      max-width:var(--max); margin:0 auto; padding:14px 18px;
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-    }
-    .brand{display:flex; align-items:center; gap:12px}
-    .mark{
-      width:38px;height:38px;border-radius:14px;
-      background:
-        radial-gradient(12px 12px at 30% 35%, rgba(255,255,255,.95), transparent 60%),
-        linear-gradient(135deg, rgba(122,162,255,.9), rgba(110,243,197,.85));
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 16px 50px rgba(122,162,255,.18);
-    }
-    .brand b{font-size:14px; letter-spacing:.2px}
-    .brand span{display:block; font-size:12.5px; color:rgba(234,240,255,.56)}
-    .btn{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:10px 12px; border-radius:14px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      box-shadow: 0 12px 42px rgba(0,0,0,.35);
-      transition: transform .14s ease, border-color .15s ease, background .15s ease;
-      white-space:nowrap;
-      cursor:pointer;
-    }
-    .btn:hover{transform:translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(122,162,255,.35)}
-    .btn.primary{
-      background: linear-gradient(135deg, rgba(122,162,255,.18), rgba(110,243,197,.10));
-      border-color: rgba(122,162,255,.45);
-    }
-
-    /* Layout */
-    main{position:relative; z-index:1}
-    .wrap{max-width:var(--max); margin:0 auto; padding: 34px 18px 78px}
-
-    /* Hero */
-    .hero{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 18px;
-      align-items:stretch;
-      min-height: 58vh;
-    }
-    @media (max-width: 980px){ .hero{grid-template-columns:1fr} }
-
-    .card{
-      border-radius: 28px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
-      box-shadow: var(--shadow);
-      padding: 18px;
-      overflow:hidden;
-      position:relative;
-      transform: translateZ(0);
-    }
-    .card::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(560px 240px at 18% 0%, rgba(122,162,255,.10), transparent 62%),
-        radial-gradient(520px 240px at 85% 22%, rgba(110,243,197,.08), transparent 62%);
-      pointer-events:none;
-      opacity: .95;
-    }
-    .card > *{position:relative}
-
-    .pill{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--mut);
-      font-size: 12.5px;
-      width:max-content;
-    }
-    .spark{
-      width:10px;height:10px;border-radius:999px;
-      background: var(--b);
-      box-shadow: 0 0 0 4px rgba(110,243,197,.12);
-    }
-
-    h1{
-      margin: 14px 0 10px;
-      font-size: clamp(44px, 6vw, 74px);
-      line-height: 1.02;
-      letter-spacing: -1.3px;
-    }
-    .rotate{
-      display:inline-flex; align-items:baseline; gap:10px;
-    }
-    .rotator{
-      display:inline-block;
-      position:relative;
-      padding: 0 6px;
-      border-radius: 10px;
-      background: rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.10);
-      min-width: 180px;
-      text-align:center;
-      overflow:hidden;
-    }
-    .rotator span{
-      display:block;
-      animation: swap 8s infinite;
-      will-change: transform, opacity;
-    }
-    @keyframes swap{
-      0%, 18% {transform: translateY(0); opacity:1}
-      22% {opacity:0}
-      25%, 43% {transform: translateY(-100%); opacity:1}
-      47% {opacity:0}
-      50%, 68% {transform: translateY(-200%); opacity:1}
-      72% {opacity:0}
-      75%, 93% {transform: translateY(-300%); opacity:1}
-      97% {opacity:0}
-      100% {transform: translateY(0); opacity:1}
-    }
-    .rotator .stack{
-      display:grid;
-      gap: 0;
-    }
-    .sub{
-      margin: 0;
-      color: rgba(234,240,255,.68);
-      font-size: 16px;
-      max-width: 56ch;
-    }
-
-    /* Animated CTA strip */
-    .strip{
-      margin-top: 16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-    .marquee{
-      flex:1;
-      min-width: 260px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      overflow:hidden;
-      position:relative;
-    }
-    .marquee .track{
-      display:flex;
-      gap: 16px;
-      padding: 10px 12px;
-      width: max-content;
-      animation: scroll 18s linear infinite;
-      will-change: transform;
-    }
-    .tag{
-      font-size: 12px;
-      color: rgba(234,240,255,.70);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.14);
-      padding: 6px 10px;
-      border-radius: 999px;
-      white-space:nowrap;
-    }
-    @keyframes scroll{
-      0%{transform:translateX(0)}
-      100%{transform:translateX(-50%)}
-    }
-
-    /* Feature tiles (mostly visual) */
-    .tiles{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 12px;
-    }
-    @media (max-width: 980px){ .tiles{grid-template-columns:1fr} }
-
-    .tile{
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      padding: 14px;
-      position:relative;
-      overflow:hidden;
-      transform: translateZ(0);
-      transition: transform .18s ease, border-color .18s ease, background .18s ease;
-    }
-    .tile:hover{transform: translateY(-2px); border-color: rgba(122,162,255,.25); background: rgba(255,255,255,.045)}
-    .icon{
-      width: 42px; height: 42px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background:
-        radial-gradient(12px 12px at 30% 30%, rgba(255,255,255,.18), transparent 60%),
-        linear-gradient(135deg, rgba(122,162,255,.16), rgba(110,243,197,.10));
-      display:flex; align-items:center; justify-content:center;
-      margin-bottom: 10px;
-      box-shadow: 0 18px 60px rgba(0,0,0,.30);
-    }
-    .icon svg{width:18px;height:18px;fill: rgba(234,240,255,.85)}
-    .tile b{display:block; font-size: 13.5px}
-    .tile p{margin: 6px 0 0; font-size: 12.8px; color: rgba(234,240,255,.62)}
-
-    .tile::after{
-      content:"";
-      position:absolute;
-      right:-40px; top:-40px;
-      width: 140px; height: 140px;
-      background: radial-gradient(circle at 30% 30%, rgba(110,243,197,.22), transparent 62%);
-      opacity:.8;
-      transform: rotate(18deg);
-      pointer-events:none;
-      transition: transform .6s ease;
-    }
-    .tile:hover::after{transform: rotate(28deg) scale(1.05)}
-
-    /* Right hero visual */
-    .viz{
-      height:100%;
-      display:grid;
-      grid-template-rows: 1fr 1fr;
-      gap: 12px;
-    }
-    .orb{
-      border-radius: 28px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      position:relative;
-      overflow:hidden;
-      min-height: 180px;
-    }
-    .orb .pulse{
-      position:absolute; inset:-40%;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(122,162,255,.18), transparent 52%),
-        radial-gradient(circle at 70% 40%, rgba(110,243,197,.14), transparent 54%),
-        radial-gradient(circle at 50% 75%, rgba(122,162,255,.10), transparent 56%);
-      animation: pulse 6.8s ease-in-out infinite;
-      transform: translateZ(0);
-    }
-    @keyframes pulse{
-      0%{transform: scale(1) rotate(0deg)}
-      50%{transform: scale(1.06) rotate(6deg)}
-      100%{transform: scale(1) rotate(0deg)}
-    }
-
-    /* fake “live” ticker line */
-    .ticker{
-      position:absolute; left:14px; right:14px; bottom:14px;
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      color: rgba(234,240,255,.70);
-      font-size: 12.5px;
-    }
-    .dot{
-      width:8px;height:8px;border-radius:999px;background: var(--b);
-      box-shadow: 0 0 0 4px rgba(110,243,197,.10);
-    }
-    .minirow{display:flex; align-items:center; gap:10px}
-    .bars{
-      display:flex; align-items:flex-end; gap:4px; height:18px;
-    }
-    .bars i{
-      display:block; width:4px; border-radius: 999px;
-      background: rgba(234,240,255,.65);
-      animation: eq 1.2s ease-in-out infinite;
-      opacity:.7;
-    }
-    .bars i:nth-child(2){animation-delay:.1s}
-    .bars i:nth-child(3){animation-delay:.2s}
-    .bars i:nth-child(4){animation-delay:.3s}
-    .bars i:nth-child(5){animation-delay:.4s}
-    @keyframes eq{
-      0%,100%{height:6px}
-      50%{height:18px}
-    }
-
-    /* Second section (horizontal rails) */
-    .section{margin-top: 18px}
-    .rail{
-      display:flex;
-      gap: 12px;
-      overflow-x:auto;
-      padding: 10px 2px 4px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-    .rail::-webkit-scrollbar{height:10px}
-    .rail::-webkit-scrollbar-thumb{background: rgba(255,255,255,.10); border-radius: 999px}
-    .rail::-webkit-scrollbar-track{background: transparent}
-
-    .pane{
-      flex: 0 0 360px;
-      scroll-snap-align: start;
-      border-radius: 26px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      padding: 14px;
-      position:relative;
-      overflow:hidden;
-      transition: transform .18s ease, border-color .18s ease, background .18s ease;
-    }
-    .pane:hover{transform: translateY(-2px); border-color: rgba(122,162,255,.25); background: rgba(255,255,255,.045)}
-    .pane b{display:block; font-size: 13.5px}
-    .pane p{margin:6px 0 0; font-size: 12.8px; color: rgba(234,240,255,.62)}
-    .pane::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(520px 220px at 20% 0%, rgba(122,162,255,.10), transparent 62%);
-      opacity:.9; pointer-events:none;
-    }
-
-    /* Contact */
-    .contact{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      align-items:stretch;
-    }
-    @media (max-width: 980px){ .contact{grid-template-columns:1fr} }
-
-    .form{
-      display:grid; gap:10px; margin-top: 10px;
-    }
-    .row{display:grid; grid-template-columns:1fr 1fr; gap:10px}
-    @media (max-width: 640px){ .row{grid-template-columns:1fr} }
-    label{font-size:12.5px; color: rgba(234,240,255,.56)}
-    input, textarea{
-      width:100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      color: var(--txt);
-      outline:none;
-      transition: border-color .15s ease, background .15s ease, transform .12s ease;
-    }
-    input:focus, textarea:focus{
-      border-color: rgba(122,162,255,.55);
-      background: rgba(0,0,0,.22);
-      transform: translateY(-1px);
-    }
-    textarea{min-height:110px; resize: vertical}
-    .help{margin:0; font-size:12.5px; color: rgba(234,240,255,.56)}
-    .err{margin:0; font-size:12.5px; color:#FF6B6B; display:none}
-
-    /* Reveal on scroll */
-    .reveal{opacity:0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease}
-    .reveal.in{opacity:1; transform: translateY(0)}
-    .anchor{scroll-margin-top: 92px}
-  </style>
-</head>
-
-<body>
-  <div class="bg" aria-hidden="true"></div>
-  <div class="spot" id="spot" aria-hidden="true"></div>
-
-  <header>
-    <div class="bar">
-      <a class="brand" href="#top" aria-label="SVTRADZ home">
-        <div class="mark" aria-hidden="true"></div>
-        <div>
-          <b>SVTRADZ</b>
-          <span>We don’t predict. We react.</span>
-        </div>
-      </a>
-      <a class="btn primary" href="#contact">Join free beta →</a>
-    </div>
-  </header>
-
-  <main id="top" class="wrap">
-    <!-- HERO -->
-    <section class="hero reveal">
-      <div class="card">
-        <div class="pill"><span class="spark" aria-hidden="true"></span> free beta • high signal</div>
-
-        <h1>
-          <span class="rotate">We trade <span class="rotator" aria-hidden="true">
-            <span class="stack">
-              <span>reaction.</span>
-              <span>probability.</span>
-              <span>process.</span>
-              <span>restraint.</span>
-            </span>
-          </span></span>
-        </h1>
-
-        <p class="sub">No prediction. No hype. Just execution.</p>
-
-        <div class="strip">
-          <div class="marquee" aria-hidden="true">
-            <div class="track">
-              <span class="tag">stats &gt; screenshots</span>
-              <span class="tag">risk-defined</span>
-              <span class="tag">live clips</span>
-              <span class="tag">clean recaps</span>
-              <span class="tag">no signal spam</span>
-              <span class="tag">stats &gt; screenshots</span>
-              <span class="tag">risk-defined</span>
-              <span class="tag">live clips</span>
-              <span class="tag">clean recaps</span>
-              <span class="tag">no signal spam</span>
-            </div>
-          </div>
-          <a class="btn" href="#contact">Contact: svtradz@gmail.com</a>
-        </div>
-
-        <div class="tiles" style="margin-top:14px">
-          <div class="tile" data-tilt>
-            <div class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M4 19h16v2H4v-2zm2-2V3h2v14H6zm5 0V8h2v9h-2zm5 0V5h2v12h-2z"/></svg>
-            </div>
-            <b>Weekly stats</b>
-            <p>Sample size. Avg R. Drawdown.</p>
-          </div>
-          <div class="tile" data-tilt>
-            <div class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M8 5h13v14H3V7h5V5zm0 2v1H5v9h14V7H8z"/></svg>
-            </div>
-            <b>Recaps</b>
-            <p>What happened. What mattered.</p>
-          </div>
-          <div class="tile" data-tilt>
-            <div class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z"/></svg>
-            </div>
-            <b>Live clips</b>
-            <p>Conditions → decision → execution.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT VISUAL -->
-      <div class="viz">
-        <div class="orb card" data-tilt>
-          <div class="pulse" aria-hidden="true"></div>
-          <div class="ticker">
-            <div class="minirow"><span class="dot" aria-hidden="true"></span><span>LIVE • reaction mode</span></div>
-            <div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-          </div>
-        </div>
-
-        <div class="orb card" data-tilt>
-          <div class="pulse" aria-hidden="true" style="animation-duration:7.8s; opacity:.75"></div>
-          <div class="ticker">
-            <div class="minirow"><span class="dot" aria-hidden="true"></span><span>NO TRADE is a trade</span></div>
-            <div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- HORIZONTAL EXPERIENCE -->
-    <section class="section reveal" aria-label="Experience">
-      <div class="rail">
-        <div class="pane" data-tilt>
-          <b>Animated explainers</b>
-          <p>Short. Visual. Clean.</p>
-        </div>
-        <div class="pane" data-tilt>
-          <b>No prediction language</b>
-          <p>We trade conditions.</p>
-        </div>
-        <div class="pane" data-tilt>
-          <b>Risk-defined always</b>
-          <p>Invalidation first.</p>
-        </div>
-        <div class="pane" data-tilt>
-          <b>Calm community</b>
-          <p>High signal only.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="section reveal anchor">
-      <div class="contact">
-        <div class="card" data-tilt>
-          <div class="pill"><span class="spark" aria-hidden="true"></span> contact</div>
-          <h1 style="font-size: clamp(34px, 4.6vw, 54px); margin-bottom:8px">Say hi.</h1>
-          <p class="sub" style="max-width: 40ch">Join beta, collab, or ask a question.</p>
-          <div class="tiles" style="grid-template-columns:1fr; margin-top:14px">
-            <div class="tile">
-              <b>Email</b>
-              <p>svtradz@gmail.com</p>
-            </div>
-            <a class="tile" href="mailto:svtradz@gmail.com?subject=SVTRADZ%20Beta&body=Name%3A%0AExperience%3A%0AWhy%20join%3A%0A" style="display:block">
-              <b>One-click email</b>
-              <p>Opens your mail app.</p>
-            </a>
-          </div>
-          <p class="help" style="margin-top:12px">Education only. Not financial advice.</p>
-        </div>
-
-        <div class="card">
-          <form class="form" id="form" novalidate>
-            <div class="row">
-              <div>
-                <label for="name">Name</label>
-                <input id="name" required placeholder="Your name" autocomplete="name" />
-              </div>
-              <div>
-                <label for="email">Email</label>
-                <input id="email" required placeholder="you@domain.com" autocomplete="email" />
-              </div>
-            </div>
-
-            <div>
-              <label for="msg">Message</label>
-              <textarea id="msg" required placeholder="Beta / collab / question"></textarea>
-            </div>
-
-            <p class="err" id="err">Fill all fields and use a valid email.</p>
-            <button class="btn primary" type="submit">Send →</button>
-            <p class="help">This opens your email client with a pre-filled message.</p>
-          </form>
-
-          <div class="help" style="margin-top:10px; border-top:1px solid rgba(255,255,255,.08); padding-top:10px">
-            © <span id="y"></span> SVTRADZ
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script>
-    (function(){
-      const CONTACT_EMAIL = "svtradz@gmail.com";
-
-      // year
-      document.getElementById("y").textContent = new Date().getFullYear();
-
-      // spotlight
-      const spot = document.getElementById("spot");
-      let last = 0;
-      window.addEventListener("pointermove", (e)=>{
-        const now = performance.now();
-        if(now - last < 16) return;
-        last = now;
-        spot.style.left = e.clientX + "px";
-        spot.style.top = e.clientY + "px";
-        spot.style.opacity = "0.25";
-      });
-      window.addEventListener("pointerleave", ()=> spot.style.opacity = "0");
-
-      // reveal
-      const els = Array.from(document.querySelectorAll(".reveal"));
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(x=>{ if(x.isIntersecting) x.target.classList.add("in"); });
-      }, {threshold: 0.12});
-      els.forEach(el=>io.observe(el));
-
-      // tilt micro-interaction (lightweight)
-      const tilts = Array.from(document.querySelectorAll("[data-tilt]"));
-      tilts.forEach(el=>{
-        el.addEventListener("pointermove", (ev)=>{
-          const r = el.getBoundingClientRect();
-          const x = (ev.clientX - r.left) / r.width - 0.5;
-          const y = (ev.clientY - r.top) / r.height - 0.5;
-          el.style.transform = `perspective(900px) rotateX(${(-y*5).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg) translateY(-1px)`;
-        });
-        el.addEventListener("pointerleave", ()=>{
-          el.style.transform = "translateY(0)";
-        });
-      });
-
-      // contact form -> mailto
-      const form = document.getElementById("form");
-      const err = document.getElementById("err");
-      const validEmail = (v)=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v||"").trim());
-      const clean = (v)=>String(v||"").replace(/\r/g,"").trim();
-
-      form.addEventListener("submit", (e)=>{
-        e.preventDefault();
-        err.style.display = "none";
-
-        const name = clean(document.getElementById("name").value);
-        const email = clean(document.getElementById("email").value);
-        const msg = clean(document.getElementById("msg").value);
-
-        if(!name || !validEmail(email) || !msg){
-          err.style.display = "block";
-          return;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVTRADZ — We don't predict. We react.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        const subject = encodeURIComponent("SVTRADZ — Message (From " + name + ")");
-        const body = encodeURIComponent(["Name: "+name, "Email: "+email, "", msg].join("\n"));
-        window.location.href = "mailto:" + CONTACT_EMAIL + "?subject=" + subject + "&body=" + body;
-      });
-    })();
-  </script>
+        :root {
+            --bg-dark: #0a0e17;
+            --bg-card: #12161f;
+            --accent: #00d4ff;
+            --accent-2: #0066ff;
+            --text: #e4e4e7;
+            --text-dim: #a1a1aa;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Animated Aurora Background */
+        .aurora-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .aurora-bg::before,
+        .aurora-bg::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            animation: aurora 20s ease-in-out infinite;
+        }
+
+        .aurora-bg::before {
+            background: radial-gradient(ellipse at 20% 30%, rgba(0, 102, 255, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 70%, rgba(0, 212, 255, 0.12) 0%, transparent 50%);
+            animation-delay: -10s;
+        }
+
+        .aurora-bg::after {
+            background: radial-gradient(ellipse at 60% 50%, rgba(0, 150, 255, 0.1) 0%, transparent 50%);
+        }
+
+        @keyframes aurora {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-5%, -10%) rotate(120deg); }
+            66% { transform: translate(5%, 5%) rotate(240deg); }
+        }
+
+        /* Cursor Spotlight */
+        .spotlight {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            transition: transform 0.2s ease-out;
+            mix-blend-mode: screen;
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(10, 14, 23, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: 4px;
+            border-radius: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+        }
+
+        .hero-content {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 0.3s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+
+        .slogan {
+            font-size: clamp(18px, 3vw, 28px);
+            color: var(--text-dim);
+            margin-bottom: 24px;
+            font-weight: 300;
+        }
+
+        .rotating-text {
+            display: inline-block;
+            color: var(--accent);
+            font-weight: 600;
+            min-width: 140px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 2vw, 20px);
+            color: var(--text-dim);
+            margin-bottom: 48px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-primary:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .section-header.visible {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .section-header h2 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: var(--text-dim);
+        }
+
+        /* Horizontal Rail */
+        .rail-wrapper {
+            position: relative;
+            overflow: hidden;
+            margin: 0 -24px;
+            padding: 0 24px;
+        }
+
+        .rail {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 20px;
+        }
+
+        .rail::-webkit-scrollbar {
+            display: none;
+        }
+
+        .card {
+            min-width: 320px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateX(40px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card.visible {
+            animation: slideInRight 0.6s ease forwards;
+        }
+
+        @keyframes slideInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:focus-within {
+            outline: 2px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        /* Proof Section Special Styling */
+        .proof-card {
+            text-align: center;
+        }
+
+        .proof-card .card-icon {
+            margin: 0 auto 20px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .contact-form.visible {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dim);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-error {
+            color: #ff4444;
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .form-group.error .form-error {
+            display: block;
+        }
+
+        .form-group.error input,
+        .form-group.error textarea {
+            border-color: #ff4444;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-dim);
+            font-size: 14px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            nav .container {
+                padding: 16px 24px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+            }
+
+            .hero {
+                padding: 100px 24px 60px;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .card {
+                min-width: 280px;
+            }
+
+            .contact-form {
+                padding: 32px 24px;
+            }
+        }
+
+        /* Scroll Progress Indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            z-index: 101;
+            transition: width 0.1s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Aurora Background -->
+    <div class="aurora-bg"></div>
+
+    <!-- Cursor Spotlight -->
+    <div class="spotlight" id="spotlight"></div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">SVTRADZ</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#principles">Principles</a></li>
+                <li><a href="#proof">Proof</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>SVTRADZ</h1>
+            <p class="slogan">We don't predict. We react.</p>
+            <p class="hero-subtitle">
+                Trading built on <span class="rotating-text" id="rotatingText">reaction</span>, not emotion.
+            </p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">Join free beta</a>
+                <a href="#proof" class="btn btn-secondary">See our approach</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>What we offer</h2>
+                <p>Tools for clarity, not noise.</p>
+            </div>
+            <div class="rail-wrapper">
+                <div class="rail" id="featuresRail">
+                    <div class="card">
+                        <div class="card-icon">📊</div>
+                        <h3>Live setups</h3>
+                        <p>Real trades, real time. No hindsight.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🎯</div>
+                        <h3>Entry alerts</h3>
+                        <p>Know when opportunities align with process.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📈</div>
+                        <h3>Chart analysis</h3>
+                        <p>Structure over speculation. Context over chaos.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">💡</div>
+                        <h3>Trade reviews</h3>
+                        <p>Learn from wins and losses alike.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🧠</div>
+                        <h3>Risk frameworks</h3>
+                        <p>Position sizing, stop logic, exit discipline.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🤝</div>
+                        <h3>Community</h3>
+                        <p>Traders focused on process, not hype.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🔔</div>
+                        <h3>Market updates</h3>
+                        <p>Context when it matters, silence when it doesn't.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Principles Section -->
+    <section id="principles">
+        <div class="container">
+            <div class="section-header">
+                <h2>Core principles</h2>
+                <p>How we think about trading.</p>
+            </div>
+            <div class="rail-wrapper">
+                <div class="rail" id="principlesRail">
+                    <div class="card">
+                        <div class="card-icon">⚖️</div>
+                        <h3>Probability</h3>
+                        <p>Edge exists in repetition, not perfection.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🛡️</div>
+                        <h3>Risk first</h3>
+                        <p>Survive to trade another day.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🎭</div>
+                        <h3>Discipline</h3>
+                        <p>Emotion clouds. Process clarifies.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📉</div>
+                        <h3>Acceptance</h3>
+                        <p>Losses are data, not failure.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🔍</div>
+                        <h3>Transparency</h3>
+                        <p>We show everything. Good and bad.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🧩</div>
+                        <h3>Adaptability</h3>
+                        <p>Markets change. Our approach evolves.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proof Section -->
+    <section id="proof">
+        <div class="container">
+            <div class="section-header">
+                <h2>How we prove it</h2>
+                <p>Results without the BS.</p>
+            </div>
+            <div class="rail-wrapper">
+                <div class="rail" id="proofRail">
+                    <div class="card proof-card">
+                        <div class="card-icon">📊</div>
+                        <h3>Stats over screenshots</h3>
+                        <p>Win rate, risk/reward, drawdown. All transparent.</p>
+                    </div>
+                    <div class="card proof-card">
+                        <div class="card-icon">🔢</div>
+                        <h3>Sample size matters</h3>
+                        <p>100+ trades. Not cherry-picked winners.</p>
+                    </div>
+                    <div class="card proof-card">
+                        <div class="card-icon">📝</div>
+                        <h3>Process logs</h3>
+                        <p>Every entry, exit, and lesson documented.</p>
+                    </div>
+                    <div class="card proof-card">
+                        <div class="card-icon">⏱️</div>
+                        <h3>Real-time tracking</h3>
+                        <p>Live updates. No post-trade edits.</p>
+                    </div>
+                    <div class="card proof-card">
+                        <div class="card-icon">🚫</div>
+                        <h3>No fake PnL</h3>
+                        <p>We focus on process, not Lamborghinis.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get in touch</h2>
+                <p>Join the beta or ask questions.</p>
+            </div>
+            <div class="contact-section">
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                        <span class="form-error">Please enter a valid email address</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 SVTRADZ. Trading involves risk. | <a href="mailto:svtradz@gmail.com">svtradz@gmail.com</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Cursor spotlight effect
+        const spotlight = document.getElementById('spotlight');
+        let spotlightX = 0;
+        let spotlightY = 0;
+        let currentX = 0;
+        let currentY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            spotlightX = e.clientX - 300;
+            spotlightY = e.clientY - 300;
+        });
+
+        function animateSpotlight() {
+            currentX += (spotlightX - currentX) * 0.1;
+            currentY += (spotlightY - currentY) * 0.1;
+            spotlight.style.transform = `translate(${currentX}px, ${currentY}px)`;
+            requestAnimationFrame(animateSpotlight);
+        }
+        animateSpotlight();
+
+        // Scroll progress
+        window.addEventListener('scroll', () => {
+            const scrollProgress = document.getElementById('scrollProgress');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            scrollProgress.style.width = progress + '%';
+        });
+
+        // Rotating text
+        const words = ['reaction', 'process', 'probability', 'discipline', 'restraint'];
+        let wordIndex = 0;
+        const rotatingText = document.getElementById('rotatingText');
+
+        setInterval(() => {
+            rotatingText.style.opacity = '0';
+            setTimeout(() => {
+                wordIndex = (wordIndex + 1) % words.length;
+                rotatingText.textContent = words[wordIndex];
+                rotatingText.style.opacity = '1';
+            }, 300);
+        }, 3000);
+
+        rotatingText.style.transition = 'opacity 0.3s';
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe section headers
+        document.querySelectorAll('.section-header').forEach(header => {
+            observer.observe(header);
+        });
+
+        // Observe cards with stagger
+        document.querySelectorAll('.card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+            observer.observe(card);
+        });
+
+        // Observe contact form
+        observer.observe(document.querySelector('.contact-form'));
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Contact form validation and mailto
+        const contactForm = document.getElementById('contactForm');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const emailGroup = document.getElementById('email').closest('.form-group');
+            
+            if (!emailRegex.test(email)) {
+                emailGroup.classList.add('error');
+                return;
+            } else {
+                emailGroup.classList.remove('error');
+            }
+            
+            // Create mailto link
+            const subject = encodeURIComponent(`SVTRADZ Contact: ${name}`);
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+            const mailtoLink = `mailto:svtradz@gmail.com?subject=${subject}&body=${body}`;
+            
+            // Open mailto
+            window.location.href = mailtoLink;
+            
+            // Reset form
+            contactForm.reset();
+        });
+
+        // Remove error on input
+        document.getElementById('email').addEventListener('input', function() {
+            this.closest('.form-group').classList.remove('error');
+        });
+
+        // Horizontal rail swipe/scroll enhancement
+        const rails = document.querySelectorAll('.rail');
+        rails.forEach(rail => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            rail.addEventListener('mousedown', (e) => {
+                isDown = true;
+                rail.style.cursor = 'grabbing';
+                startX = e.pageX - rail.offsetLeft;
+                scrollLeft = rail.scrollLeft;
+            });
+
+            rail.addEventListener('mouseleave', () => {
+                isDown = false;
+                rail.style.cursor = 'grab';
+            });
+
+            rail.addEventListener('mouseup', () => {
+                isDown = false;
+                rail.style.cursor = 'grab';
+            });
+
+            rail.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - rail.offsetLeft;
+                const walk = (x - startX) * 2;
+                rail.scrollLeft = scrollLeft - walk;
+            });
+
+            // Touch support for mobile
+            let touchStartX = 0;
+            let touchScrollLeft = 0;
+
+            rail.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].pageX;
+                touchScrollLeft = rail.scrollLeft;
+            });
+
+            rail.addEventListener('touchmove', (e) => {
+                const touchX = e.touches[0].pageX;
+                const walk = (touchStartX - touchX) * 2;
+                rail.scrollLeft = touchScrollLeft + walk;
+            });
+        });
+
+        // Card tilt effect on hover (desktop only)
+        if (window.innerWidth > 768) {
+            document.querySelectorAll('.card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = (y - centerY) / 20;
+                    const rotateY = (centerX - x) / 20;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = '';
+                });
+            });
+        }
+    </script>
 </body>
 </html>
