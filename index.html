@@ -541,25 +541,26 @@
             left: 0;
             width: 100%;
             height: 100%;
-            display: grid;
-            grid-template-columns: repeat(100, 1fr);
-            grid-template-rows: repeat(100, 1fr);
             opacity: 0.15;
             pointer-events: none;
         }
 
         .emoji-collage span {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: clamp(20px, 2vw, 32px);
+            position: absolute;
+            font-size: clamp(24px, 3vw, 48px);
             animation: floatEmoji 8s ease-in-out infinite;
-            animation-delay: calc(var(--i) * 0.1s);
+            animation-delay: calc(var(--delay) * 1s);
         }
 
         @keyframes floatEmoji {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
+            0%, 100% { 
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translate(var(--x-move), var(--y-move)) rotate(var(--rotate));
+                opacity: 0.4;
+            }
         }
 
         .cta-content {
@@ -739,11 +740,6 @@
 
             .contact-form {
                 padding: 32px 24px;
-            }
-
-            .emoji-collage {
-                grid-template-columns: repeat(8, 1fr);
-                grid-template-rows: repeat(8, 1fr);
             }
         }
     </style>
@@ -1079,14 +1075,31 @@
     </footer>
 
     <script>
-        // Generate emoji collage
+        // Generate emoji collage with random positions
         const emojiCollage = document.getElementById('emojiCollage');
-        const emojis = ['📈', '📊', '💰', '🎯', '💡', '⚡', '🚀', '🔥', '💪', '🧠', '📉', '💵', '💎', '🎲', '⭐', '🌟', '✨', '🏆', '🎖️', '🥇', '📱', '💻', '⌚', '🔔', '📢', '🎪', '🎨', '🎭', '🎬', '🎸', '🎹', '🎺', '🎻', '🥁', '🎤', '🎧', '🎮', '🕹️', '🎰', '🎳', '🏀', '⚽', '🏈', '⚾', '🥎', '🏐', '🏉', '🎾', '🥏', '🏏', '🏑', '🏒', '🥍', '🏓', '🏸', '🥊', '🥋', '🥅', '⛳', '⛸️', '🎣', '🤿', '🎽', '🎿', '🛷', '🥌', '🎯', '🪀', '🪁', '🎱', '🔮', '🪄', '🧿', '🎊', '🎉', '🎈', '🎁', '🏅', '🥈', '🥉', '🏵️', '🎗️', '🎖️', '💫', '☄️', '✨', '🌈', '🔥', '💥', '⚡', '💫', '🌟', '⭐', '✨'];
+        const tradingEmojis = ['📈', '📊', '💰', '💵', '💸', '💴', '💶', '💷', '💳', '🏦', '📉', '💹', '🎯', '🎲', '⚡', '🔥', '💡', '🚀', '⭐', '🌟', '✨', '💎', '🏆', '📱', '💻', '⌚', '🔔', '📢', '🧠', '💪', '🤝', '👊', '✊', '🙌'];
         
         for (let i = 0; i < 100; i++) {
             const span = document.createElement('span');
-            span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-            span.style.setProperty('--i', i);
+            span.textContent = tradingEmojis[Math.floor(Math.random() * tradingEmojis.length)];
+            
+            // Random position
+            const left = Math.random() * 100;
+            const top = Math.random() * 100;
+            span.style.left = `${left}%`;
+            span.style.top = `${top}%`;
+            
+            // Random animation properties
+            const xMove = (Math.random() - 0.5) * 40; // -20px to 20px
+            const yMove = (Math.random() - 0.5) * 40; // -20px to 20px
+            const rotate = (Math.random() - 0.5) * 30; // -15deg to 15deg
+            const delay = Math.random() * 3; // 0-3 seconds
+            
+            span.style.setProperty('--x-move', `${xMove}px`);
+            span.style.setProperty('--y-move', `${yMove}px`);
+            span.style.setProperty('--rotate', `${rotate}deg`);
+            span.style.setProperty('--delay', delay);
+            
             emojiCollage.appendChild(span);
         }
 
