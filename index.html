@@ -2,298 +2,589 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>SV Tradez | Build the edge</title>
-  <meta name="description" content="SV Tradez is a community of profitable traders leveling up through backtesting, statistical modeling, and algorithmic trading. Join the waitlist." />
-  <meta name="theme-color" content="#0b0b0f" />
-
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128' viewBox='0 0 128 128'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%2334d399'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='10' y='10' width='108' height='108' rx='26' fill='url(%23g)'/%3E%3Ctext x='64' y='78' text-anchor='middle' font-family='Arial, sans-serif' font-size='54' font-weight='800' fill='%230b0b0f'%3ESV%3C/text%3E%3C/svg%3E" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>We Don’t Predict. We React. | Trading Group</title>
+  <meta name="description" content="A free trading community focused on probability, risk control, and execution. No hype. No predictions. Just reaction." />
   <style>
     :root{
-      --bg:#0b0b0f;
-      --panel:rgba(255,255,255,.04);
-      --panel2:rgba(255,255,255,.02);
-      --text:#f4f6ff;
-      --muted:#b6bdd6;
-      --line:rgba(255,255,255,.10);
-      --accent:#7c5cff;
-      --accent2:#34d399;
-      --shadow: 0 16px 55px rgba(0,0,0,.45);
-      --r:18px;
+      --bg:#0b0f17;
+      --panel:#0f1624;
+      --panel2:#0d1422;
+      --text:#e7eefc;
+      --muted:#a9b7d3;
+      --line:#22304a;
+      --accent:#7aa2ff;
+      --accent2:#6ef3c5;
+      --danger:#ff6b6b;
+      --shadow: 0 14px 40px rgba(0,0,0,.35);
+      --radius: 16px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color:var(--text);
-      background:
-        radial-gradient(900px 520px at 15% 10%, rgba(124,92,255,.24), transparent 60%),
-        radial-gradient(820px 480px at 85% 15%, rgba(52,211,153,.14), transparent 55%),
-        var(--bg);
+      background: radial-gradient(900px 600px at 20% 10%, rgba(122,162,255,.18), transparent 55%),
+                  radial-gradient(800px 500px at 80% 25%, rgba(110,243,197,.14), transparent 60%),
+                  linear-gradient(180deg, #070a10, var(--bg));
+      line-height:1.45;
     }
-    a{color:inherit; text-decoration:none}
-    a:hover{opacity:.92}
-    .container{max-width:1080px; margin:0 auto; padding:0 20px}
-
-    /* top */
-    header{padding:20px 0}
-    .top{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      border:1px solid var(--line);
-      background: rgba(11,11,15,.55);
+    a{color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px 18px 56px}
+    .nav{
+      position:sticky; top:0; z-index:10;
       backdrop-filter: blur(10px);
-      border-radius: 22px;
-      padding:12px 14px;
+      background: rgba(11,15,23,.65);
+      border-bottom: 1px solid rgba(34,48,74,.6);
     }
-    .brand{display:flex; align-items:center; gap:10px; font-weight:850; letter-spacing:.2px}
-    .mark{
-      width:36px; height:36px; display:grid; place-items:center;
-      border-radius:12px; border:1px solid var(--line);
-      background: linear-gradient(135deg, rgba(124,92,255,.28), rgba(52,211,153,.18));
+    .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;gap:14px}
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .logo{
+      width:34px;height:34px;border-radius:12px;
+      background: linear-gradient(135deg, rgba(122,162,255,.95), rgba(110,243,197,.9));
+      box-shadow: 0 10px 30px rgba(122,162,255,.18);
     }
-    .links{display:flex; gap:14px; align-items:center; color:rgba(244,246,255,.86); font-size:14px}
-    .links a{padding:8px 10px; border-radius:12px}
-    .links a:hover{background: rgba(255,255,255,.04)}
+    .brand b{letter-spacing:.2px}
+    .nav-links{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+    .nav-links a{
+      text-decoration:none;
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius:10px;
+      border:1px solid transparent;
+    }
+    .nav-links a:hover{color:var(--text);border-color:rgba(34,48,74,.7);background:rgba(15,22,36,.5)}
+    .btn{
+      cursor:pointer;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid rgba(34,48,74,.9);
+      background: rgba(15,22,36,.8);
+      color: var(--text);
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+      transition: transform .08s ease, border-color .15s ease, background .15s ease;
+    }
+    .btn:hover{border-color: rgba(122,162,255,.55); background: rgba(15,22,36,.95)}
+    .btn:active{transform: translateY(1px)}
+    .btn.primary{
+      border-color: rgba(122,162,255,.65);
+      background: linear-gradient(135deg, rgba(122,162,255,.18), rgba(110,243,197,.10));
+    }
 
-    /* hero */
-    main{padding:44px 0 56px}
-    .hero{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:18px;
-      align-items:start;
-    }
+    .hero{padding:28px 0 18px}
     .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: var(--panel2);
-      color:var(--muted);
-      font-size:14px;
-      margin:0 0 14px;
-    }
-    h1{
-      margin:0 0 14px;
-      font-size:56px;
-      line-height:1.03;
-      letter-spacing:-.8px;
-    }
-    .sub{
-      margin:0 0 18px;
-      color:var(--muted);
-      font-size:18px;
-      line-height:1.7;
-    }
-    .ctaRow{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin:10px 0 6px}
-    .note{margin:0; color:rgba(244,246,255,.72); font-size:13px; line-height:1.55}
-
-    /* card */
-    .card{
-      border:1px solid var(--line);
-      background: var(--panel);
-      border-radius: var(--r);
-      box-shadow: 0 12px 34px rgba(0,0,0,.25);
-      overflow:hidden;
-    }
-    .cardTop{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:12px 14px;
-      border-bottom:1px solid var(--line);
-      background: rgba(255,255,255,.03);
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 10px;border-radius:999px;
+      border:1px solid rgba(34,48,74,.9);
+      background: rgba(15,22,36,.6);
       color:var(--muted);
       font-size:13px;
     }
-    .dots{display:flex; gap:6px}
-    .dot{width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.14)}
-    .cardBody{padding:16px}
-    .big{
-      font-weight:850;
-      font-size:18px;
-      margin:0 0 10px;
+    .dot{
+      width:8px;height:8px;border-radius:999px;background:var(--accent2);
+      box-shadow: 0 0 0 4px rgba(110,243,197,.12);
     }
-    .list{margin:0; padding-left:18px; color:var(--muted); line-height:1.75}
-    .list li{margin:6px 0}
+    h1{
+      margin:14px 0 8px;
+      font-size: clamp(34px, 5vw, 56px);
+      letter-spacing:-.8px;
+      line-height:1.05;
+    }
+    .sub{
+      max-width:780px;
+      color: var(--muted);
+      font-size: 16px;
+      margin: 10px 0 20px;
+    }
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+    .grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:16px;
+      margin-top:16px;
+    }
+    @media (max-width: 920px){
+      .grid{grid-template-columns:1fr}
+      .nav-links{display:none}
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(15,22,36,.85), rgba(13,20,34,.85));
+      border:1px solid rgba(34,48,74,.9);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:18px;
+    }
+    .card h2{margin:0 0 10px;font-size:18px;letter-spacing:.2px}
+    .card p{margin:0 0 10px;color:var(--muted)}
+    .card p:last-child{margin-bottom:0}
+    .kpi{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    .kpi .mini{
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(34,48,74,.85);
+      background: rgba(15,22,36,.65);
+    }
+    .mini b{display:block;font-size:14px}
+    .mini span{color:var(--muted);font-size:13px}
 
-    /* waitlist */
+    .section{margin-top:18px}
+    .section h3{
+      margin:0 0 10px;
+      font-size:16px;
+      color: var(--text);
+      letter-spacing:.2px;
+    }
+    .list{
+      display:grid;
+      gap:10px;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+    .item{
+      display:flex;gap:10px;align-items:flex-start;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(34,48,74,.85);
+      background: rgba(15,22,36,.55);
+    }
+    .check{
+      width:22px;height:22px;border-radius:8px;
+      background: rgba(122,162,255,.18);
+      border:1px solid rgba(122,162,255,.35);
+      display:flex;align-items:center;justify-content:center;
+      flex: 0 0 auto;
+      margin-top:1px;
+    }
+    .check svg{width:14px;height:14px;fill:var(--accent)}
+    .item b{display:block}
+    .item span{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+
+    .manifesto{
+      font-size:14.5px;
+      color: var(--muted);
+    }
+    .manifesto strong{color:var(--text)}
+    blockquote{
+      margin: 14px 0 0;
+      padding: 14px 14px;
+      border-left: 3px solid rgba(122,162,255,.6);
+      background: rgba(15,22,36,.6);
+      border-radius: 12px;
+      color: var(--text);
+    }
+    blockquote b{color:var(--accent2)}
+    .tag{
+      display:inline-flex;align-items:center;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid rgba(34,48,74,.9);
+      background: rgba(15,22,36,.55);
+      color: var(--muted);
+      font-size:12px;
+      margin-right:8px;
+      margin-top:8px;
+    }
+
     .form{
       display:grid;
       gap:10px;
-      margin-top:14px;
+      margin-top:10px;
     }
+    label{font-size:13px;color:var(--muted)}
     input, textarea{
       width:100%;
       padding:12px 12px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.22);
-      color:var(--text);
+      border-radius: 12px;
+      border:1px solid rgba(34,48,74,.9);
+      background: rgba(7,10,16,.45);
+      color: var(--text);
       outline:none;
     }
-    input:focus, textarea:focus{border-color: rgba(124,92,255,.62)}
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:12px 16px;
-      border-radius:14px;
-      border:1px solid rgba(124,92,255,.52);
-      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(124,92,255,.60));
-      color:#fff;
-      font-weight:800;
-      box-shadow: var(--shadow);
-      cursor:pointer;
-      transition: transform .12s ease;
+    textarea{min-height:120px;resize:vertical}
+    input:focus, textarea:focus{border-color: rgba(122,162,255,.65)}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media (max-width: 640px){
+      .row{grid-template-columns:1fr}
     }
-    .btn:hover{transform: translateY(-1px)}
-    .btn:active{transform: translateY(0)}
-    .btnGhost{
-      background: transparent;
-      border:1px solid var(--line);
-      box-shadow:none;
-      color:var(--text);
-      font-weight:650;
-    }
-
-    /* lower sections */
-    .strip{
+    .help{color:var(--muted);font-size:12.5px;margin:0}
+    .error{color:var(--danger);font-size:12.5px;margin:0;display:none}
+    .footer{
       margin-top:18px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.02);
-      border-radius: var(--r);
-      padding:14px;
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
+      padding-top:14px;
+      border-top:1px solid rgba(34,48,74,.65);
       color:var(--muted);
-      font-size:14px;
+      font-size:12.5px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
     }
-    .tag{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      padding:8px 10px;
-      border-radius:999px;
-    }
-
-    footer{
-      padding:18px 0 34px;
-      color:rgba(244,246,255,.62);
-      font-size:13px;
-    }
-    .footRow{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:center}
-    .u{ text-decoration: underline; text-underline-offset: 3px; }
-
-    @media (max-width: 920px){
-      h1{font-size:46px}
-      .hero{grid-template-columns:1fr}
-    }
+    .muted{color:var(--muted)}
+    .small{font-size:12.5px}
+    .anchor{scroll-margin-top:80px}
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="container">
-      <div class="top">
-        <div class="brand">
-          <div class="mark" aria-hidden="true">SV</div>
-          <div>SV Tradez</div>
+  <div class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <b>We Don’t Predict. We React.</b><br/>
+          <span class="small muted">Sophisticated retail, minus the astrology</span>
         </div>
-        <div class="links">
-          <!-- Replace with your real links when ready -->
-          <a href="#waitlist">Waitlist</a>
-          <a href="#about">About</a>
-          <a class="btn btnGhost" href="#waitlist">Request invite</a>
+      </a>
+      <div class="nav-links">
+        <a href="#mission">Mission</a>
+        <a href="#what">What We Do</a>
+        <a href="#how">How It Works</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a class="btn primary" href="#contact" aria-label="Jump to contact form">
+        Join the free beta
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+
+  <main id="top" class="wrap">
+    <section class="hero">
+      <div class="pill"><span class="dot" aria-hidden="true"></span> Free community launch, structured like a closed beta</div>
+      <h1>Trade with probability.<br/>Execute with restraint.</h1>
+      <p class="sub">
+        A free trading group built for serious retail traders who want a repeatable process.
+        We teach reaction over prediction, and we document the process with education, live clips, and honest recaps.
+      </p>
+
+      <div class="cta-row">
+        <a class="btn primary" href="#mission">Read the manifesto</a>
+        <a class="btn" href="#contact">Contact us</a>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2 id="mission" class="anchor">Mission Manifesto</h2>
+          <div class="manifesto">
+            <p>
+              Most retail traders fail for the same reason: they try to predict a market that doesn’t owe them clarity.
+            </p>
+            <p><strong>We reject prediction. We trade reaction.</strong></p>
+            <p>
+              We believe markets are environments to respond to. Our job is not to be right. Our job is to manage risk,
+              recognize opportunity, and execute when conditions align.
+            </p>
+            <p>
+              We trade with probability, not certainty. With defined risk, not hope. With restraint, not impulse.
+            </p>
+            <p>
+              A missed trade is acceptable. A forced trade is not.
+            </p>
+            <p>
+              Every position must justify its risk before it earns the right to reward. Win rate means nothing without expectancy.
+              One trade means nothing without sample size. Discipline compounds. Ego destroys.
+            </p>
+            <p>
+              This community exists to teach traders how to think, replace astrology with statistics, replace emotion with structure,
+              and replace noise with clarity.
+            </p>
+            <p>
+              We will show wins and losses. We will show patience. We will show our process.
+            </p>
+
+            <blockquote>
+              <b>We don’t predict. We react.</b><br/>
+              No hype. No shortcuts. Only execution.
+            </blockquote>
+
+            <div>
+              <span class="tag">Probability-first</span>
+              <span class="tag">Risk-defined</span>
+              <span class="tag">Process transparent</span>
+              <span class="tag">Restraint over noise</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>What you can expect</h2>
+          <p>Clean content. Clear rules. Minimal noise. No “trust me bro” P&L screenshots.</p>
+
+          <div class="kpi">
+            <div class="mini">
+              <b>Education</b>
+              <span>Retail concepts explained simply, with high quality visuals and animations.</span>
+            </div>
+            <div class="mini">
+              <b>Live reaction</b>
+              <span>Clips and commentary focused on setups, invalidation, and execution.</span>
+            </div>
+            <div class="mini">
+              <b>Session recaps</b>
+              <span>What we saw, what we did, what we skipped, and why.</span>
+            </div>
+            <div class="mini">
+              <b>Restraint</b>
+              <span>“No trade” is normal. Overtrading is the enemy.</span>
+            </div>
+          </div>
+
+          <p class="help" style="margin-top:10px;">
+            Note: This is a free beta. We are building proof, structure, and consistency first.
+          </p>
         </div>
       </div>
-    </div>
-  </header>
+    </section>
 
-  <main>
-    <div class="container">
-      <section class="hero">
-        <div>
-          <p class="pill">Private community • Research-driven • No hype</p>
-          <h1>Build the edge. Prove it. Execute it.</h1>
-          <p class="sub">
-            SV Tradez is a community of profitable traders taking our game to the next level through backtesting,
-            statistical modeling, and algorithmic trading. We treat trading like engineering.
-          </p>
+    <section id="what" class="section anchor">
+      <div class="card">
+        <h2>What We Do</h2>
+        <p>We’re building a community around repeatable decision-making, not prediction and vibes.</p>
 
-          <div class="ctaRow">
-            <a class="btn" href="#waitlist">Join the waitlist</a>
-            <a class="btn btnGhost" href="#about">What is this?</a>
-          </div>
+        <ul class="list" style="margin-top:12px;">
+          <li class="item">
+            <div class="check" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+            </div>
+            <div>
+              <b>Teach probabilistic thinking</b>
+              <span>Expectancy, sample size, risk of ruin, and why win rate alone is a trap.</span>
+            </div>
+          </li>
 
-          <p class="note">
-            No signals. No promises. Just process, research, and accountability.
-          </p>
+          <li class="item">
+            <div class="check" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+            </div>
+            <div>
+              <b>Document real execution</b>
+              <span>Live clips and recaps that show the full process, including losses and no-trade days.</span>
+            </div>
+          </li>
 
-          <div class="strip" id="about">
-            <span class="tag">Backtesting standards</span>
-            <span class="tag">Robustness checks</span>
-            <span class="tag">Strategy reviews</span>
-            <span class="tag">Algo development</span>
-            <span class="tag">Risk frameworks</span>
-          </div>
+          <li class="item">
+            <div class="check" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+            </div>
+            <div>
+              <b>Build structure and restraint</b>
+              <span>Defined risk, clear invalidation, and fewer trades with higher quality decisions.</span>
+            </div>
+          </li>
+
+          <li class="item">
+            <div class="check" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+            </div>
+            <div>
+              <b>Cut the noise</b>
+              <span>No hype cycles. No prediction language. No ego-driven trade calls.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="how" class="section anchor">
+      <div class="grid">
+        <div class="card">
+          <h2>How it works (simple)</h2>
+          <p>We keep the community calm and structured so people actually learn.</p>
+
+          <ul class="list" style="margin-top:12px;">
+            <li class="item">
+              <div class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+              </div>
+              <div>
+                <b>Education drops</b>
+                <span>Short, high quality explainers. One concept at a time.</span>
+              </div>
+            </li>
+            <li class="item">
+              <div class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+              </div>
+              <div>
+                <b>Live reaction commentary</b>
+                <span>Context, conditions, invalidation. Not a signal spam feed.</span>
+              </div>
+            </li>
+            <li class="item">
+              <div class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+              </div>
+              <div>
+                <b>Session recaps</b>
+                <span>What happened and why, including mistakes and no-trade days.</span>
+              </div>
+            </li>
+            <li class="item">
+              <div class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+              </div>
+              <div>
+                <b>Transparency with stats</b>
+                <span>Weekly summaries: sample size, win rate, average R, drawdown.</span>
+              </div>
+            </li>
+          </ul>
         </div>
 
-        <aside class="card" id="waitlist">
-          <div class="cardTop">
-            <div class="dots" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-            <div>Early access</div>
-          </div>
-          <div class="cardBody">
-            <p class="big">Request an invite</p>
-            <ul class="list">
-              <li>Founding-member access</li>
-              <li>Research templates + testing workflow</li>
-              <li>Community standards from day one</li>
-            </ul>
+        <div class="card">
+          <h2>Culture rules (short version)</h2>
+          <p>These are here to keep the place useful, not loud.</p>
 
-            <form class="form" id="wlForm">
-              <input id="wlName" placeholder="Name" autocomplete="name" required />
-              <input id="wlEmail" placeholder="Email" autocomplete="email" type="email" required />
-              <textarea id="wlMsg" rows="4" placeholder="One-liner: what do you trade and what are you building?"></textarea>
-              <button class="btn" type="submit">Join waitlist</button>
-              <p class="note">
-                This opens your email app (no backend yet). We can wire a real form later.
-              </p>
-            </form>
-          </div>
-        </aside>
-      </section>
+          <ul class="list" style="margin-top:12px;">
+            <li class="item">
+              <div class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+              </div>
+              <div>
+                <b>No prediction language</b>
+                <span>We discuss conditions and reactions, not certainty.</span>
+              </div>
+            </li>
+            <li class="item">
+              <div class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+              </div>
+              <div>
+                <b>Risk comes first</b>
+                <span>Define invalidation before entry. No “hope stops.”</span>
+              </div>
+            </li>
+            <li class="item">
+              <div class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+              </div>
+              <div>
+                <b>No hindsight flexing</b>
+                <span>If you didn’t take it, you don’t own it.</span>
+              </div>
+            </li>
+            <li class="item">
+              <div class="check" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+              </div>
+              <div>
+                <b>Restraint is respected</b>
+                <span>“No trade” is a valid outcome.</span>
+              </div>
+            </li>
+          </ul>
 
-      <footer>
-        <div class="footRow">
-          <div>© <span id="year"></span> SV Tradez</div>
+          <p class="help" style="margin-top:10px;">
+            This is educational content, not financial advice. Trade at your own risk.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section anchor">
+      <div class="card">
+        <h2>Contact</h2>
+        <p>If you want to join the free beta, collaborate, or ask a question, send a message.</p>
+
+        <!--
+          This form uses a mailto fallback. Replace CONTACT_EMAIL below with your real email.
+          If you want a real submission endpoint, swap the JS for your backend (or Formspree, Netlify Forms, etc.).
+        -->
+        <form class="form" id="contactForm" novalidate>
+          <div class="row">
+            <div>
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" placeholder="Your name" autocomplete="name" required />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@domain.com" autocomplete="email" required />
+            </div>
+          </div>
+
           <div>
-            <span class="note">Educational community. Not financial advice.</span>
-            <span class="note"> <a class="u" href="#" onclick="alert('Add your disclaimer page later. For now: education only, no advice, risk exists.'); return false;">Disclaimer</a></span>
+            <label for="subject">Subject</label>
+            <input id="subject" name="subject" type="text" placeholder="Joining the beta / question / collaboration" required />
           </div>
+
+          <div>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+          </div>
+
+          <p class="error" id="formError">Please fill out all fields with a valid email.</p>
+          <p class="help" id="formHelp">
+            This will open your email client with a pre-filled message. Replace <span class="muted">CONTACT_EMAIL</span> in the file with your real email.
+          </p>
+
+          <button class="btn primary" type="submit">Send message</button>
+        </form>
+
+        <div class="footer">
+          <div>© <span id="year"></span> We Don’t Predict. We React.</div>
+          <div class="muted">Free beta community. Process-first trading.</div>
         </div>
-      </footer>
-    </div>
+      </div>
+    </section>
   </main>
 
   <script>
-    document.getElementById("year").textContent = String(new Date().getFullYear());
+    (function(){
+      const CONTACT_EMAIL = "CONTACT_EMAIL"; // <- replace with your email, e.g. "you@example.com"
+      const form = document.getElementById("contactForm");
+      const err = document.getElementById("formError");
+      const help = document.getElementById("formHelp");
+      const year = document.getElementById("year");
+      year.textContent = new Date().getFullYear();
 
-    // Waitlist: mailto (quick and reliable until you add a real backend)
-    document.getElementById("wlForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const name = document.getElementById("wlName").value.trim();
-      const email = document.getElementById("wlEmail").value.trim();
-      const msg = document.getElementById("wlMsg").value.trim();
+      function validEmail(v){
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v || "").trim());
+      }
+      function clean(v){
+        return String(v || "").replace(/\r/g, "").trim();
+      }
 
-      const subject = encodeURIComponent("SV Tradez — Waitlist request");
-      const body = encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg || "(none)"}\n`
-      );
+      form.addEventListener("submit", function(e){
+        e.preventDefault();
+        err.style.display = "none";
 
-      // Change this to your inbox:
-      const to = "svtradz@gmail.com";
-      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-    });
+        const name = clean(document.getElementById("name").value);
+        const email = clean(document.getElementById("email").value);
+        const subject = clean(document.getElementById("subject").value);
+        const message = clean(document.getElementById("message").value);
+
+        if(!name || !validEmail(email) || !subject || !message){
+          err.style.display = "block";
+          return;
+        }
+
+        const finalSubject = encodeURIComponent(subject + " (From " + name + ")");
+        const bodyLines = [
+          "Name: " + name,
+          "Email: " + email,
+          "",
+          message
+        ];
+        const finalBody = encodeURIComponent(bodyLines.join("\n"));
+
+        const target = (CONTACT_EMAIL && CONTACT_EMAIL !== "CONTACT_EMAIL") ? CONTACT_EMAIL : "CONTACT_EMAIL";
+        if(target === "CONTACT_EMAIL"){
+          help.innerHTML = 'Replace <span class="muted">CONTACT_EMAIL</span> in the HTML file with your real email to enable one-click sending.';
+        }
+
+        window.location.href = "mailto:" + target + "?subject=" + finalSubject + "&body=" + finalBody;
+      });
+    })();
   </script>
 </body>
 </html>
